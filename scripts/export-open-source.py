@@ -51,6 +51,8 @@ def resolve_import(source, spec):
 def export(out, website_commit):
     if out.exists():
         raise ValueError('Output must not already exist')
+    if out.is_relative_to(ROOT):
+        raise ValueError('Output must be outside the plugin source tree')
     if not (WORKSPACE / 'mcs-web/core/planner.mjs').is_file():
         raise ValueError('Run this exporter from the MCS maintainer workspace')
     out.mkdir(parents=True)
