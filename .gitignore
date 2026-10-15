@@ -3,6 +3,8 @@ dist/
 preview/
 runtime/
 *.tsbuildinfo
+__pycache__/
+*.pyc
 
 # 本机发布指针（含本机绝对路径），不入库
 release/latest.json
