@@ -1,0 +1,3 @@
+# Preserve upstream bytes: provenance and content identities hash these files.
+upstream/** -text
+release/** -text

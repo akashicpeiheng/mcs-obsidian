@@ -1,9 +1,17 @@
-import { makePlanner } from '../../mcs-web/core/planner.mjs';
+import { makePlanner } from '../upstream/mcs-web/core/planner.mjs';
 import { createHash } from 'node:crypto';
 
 export const VIEW_SCHEMA = 'mcs-view/2';
 export const BUNDLE_SCHEMA = 'mcs-bundle/2';
 export const RELATION_KINDS = ['definitionReference', 'scaling', 'equivalentTo', 'conditionalDerivation', 'instanceOf', 'counterexampleTo', 'analogy', 'topic'];
+/**
+ * 关系线上简短表达的字符上限（`relation.short`）。
+ *
+ * 这是**显示**约束，不是数学义务：标签画在连线上，超过一行就会压住节点卡片，
+ * 所以这里按屏幕可读性设一个上限，并把明确的拒绝放在校验层，而不是悄悄截断。
+ * 详细的条件与边界仍写在 `relation.explanation` 里。
+ */
+export const EDGE_LABEL_MAX = 60;
 export const clone = (v) => structuredClone(v);
 const unique = (v) => [...new Set(v)];
 const object = (v) => v && typeof v === 'object' && !Array.isArray(v);
@@ -28,7 +36,7 @@ export function verifyContentIdentity(content) {
 export function createView(content, name = '我的数学网络') {
   return { schema: VIEW_SCHEMA, id: crypto.randomUUID(), name, revision: 0, contentVersion: content.version,
     added: [], positions: {}, locked: [], layout: { mode: 'free', anchor: null }, camera: { x: 45, y: 70, scale: 1 },
-    relations: [], formalSources: {}, bindings: {}, showRelations: true, showActions: true, route: null,
+    relations: [], formalSources: {}, bindings: {}, showRelations: true, showActions: true, showEdgeLabels: true, route: null,
     display: { nodeMode:'adaptive', motion:'auto' } };
 }
 
@@ -36,7 +44,7 @@ export function validateView(raw, content) {
   if (object(raw) && raw.schema === 'mcs-view/1') raw = {...raw,schema:VIEW_SCHEMA,display:{nodeMode:'adaptive',motion:'auto'}};
   if (!object(raw) || raw.schema !== VIEW_SCHEMA) fail('不支持的视图格式');
   raw={...raw,formalSources:raw.formalSources??{}};
-  const fields=new Set(['schema','id','name','revision','contentVersion','added','positions','locked','layout','camera','relations','formalSources','bindings','showRelations','showActions','route','display']);
+  const fields=new Set(['schema','id','name','revision','contentVersion','added','positions','locked','layout','camera','relations','formalSources','bindings','showRelations','showActions','showEdgeLabels','route','display']);
   if(Object.keys(raw).some(k=>!fields.has(k)))fail('视图含协议未定义字段；个人状态与证明报告须单独保存');
   if (typeof raw.id !== 'string' || !raw.id || typeof raw.name !== 'string' || !raw.name.trim()) fail('视图缺少 ID 或名称');
   if (!Number.isInteger(raw.revision) || raw.revision < 0) fail('视图修订号无效');
@@ -54,6 +62,9 @@ export function validateView(raw, content) {
   validateFormalSources(raw.formalSources,content);
   if (!object(raw.bindings) || Object.entries(raw.bindings).some(([id,path]) => !ids.has(id) || typeof path !== 'string' || path.startsWith('/') || path.includes('..') || /^[a-z]:/i.test(path))) fail('笔记绑定必须是库内相对路径');
   if (typeof raw.showActions !== 'boolean' || typeof raw.showRelations !== 'boolean') fail('关系显示设置无效');
+  /* 0.3.1 新增：旧视图没有这个字段，读入时按“开”补默认值（连线上的简短表达默认显示）。 */
+  if (raw.showEdgeLabels !== undefined && typeof raw.showEdgeLabels !== 'boolean') fail('关系标签显示设置无效');
+  raw.showEdgeLabels = raw.showEdgeLabels ?? true;
   if (!object(raw.display) || raw.display.nodeMode !== 'adaptive' || !['auto','off'].includes(raw.display.motion) || Object.keys(raw.display).some(k=>!['nodeMode','motion'].includes(k))) fail('动态显示设置无效');
   if (raw.route !== null) validateRoute(raw.route, content);
   return clone(raw);
@@ -64,6 +75,13 @@ export function validateRelation(r, content) {
   if (!object(r) || typeof r.id !== 'string' || !r.id || !RELATION_KINDS.includes(r.kind)) fail('关系类型或 ID 无效');
   if (!Array.isArray(r.inputs) || !r.inputs.length || r.inputs.some(id => !nodes.has(id)) || unique(r.inputs).length !== r.inputs.length || !nodes.has(r.output)) fail('关系输入输出无效');
   if (typeof r.explanation !== 'string' || !r.explanation.trim()) fail('请写出关系的自然解释与适用范围');
+  if (r.short !== undefined) {
+    if (typeof r.short !== 'string') fail('关系线上的简短表达必须是文本');
+    if (r.short.trim() !== r.short) fail('简短表达首尾不能有空白');
+    if (!r.short) fail('简短表达不能是空串；不显示请删除这个字段');
+    if (/[\r\n]/.test(r.short)) fail('简短表达只能是一行，详细说明请写在解释里');
+    if ([...r.short].length > EDGE_LABEL_MAX) fail(`简短表达最多 ${EDGE_LABEL_MAX} 个字符，详细说明请写在解释里`);
+  }
   if (!object(r.nodeVersions) || [...r.inputs,r.output].some(id => typeof r.nodeVersions[id] !== 'string')) fail('关系缺少节点版本');
   if (typeof r.sourceReviewed !== 'boolean') fail('关系缺少原文对应审阅状态');
   if (r.formal) {

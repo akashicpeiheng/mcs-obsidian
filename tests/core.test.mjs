@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
-import { createView, validateView, validateContent, planLearning, replayFrame, validateRoute, recommendations, exportBundle, importBundle, relationInput, relationState,contentHash,verifyContentIdentity } from '../src/core.mjs';
+import { createView, validateView, validateRelation, validateContent, planLearning, replayFrame, validateRoute, recommendations, exportBundle, importBundle, relationInput, relationState,contentHash,verifyContentIdentity,EDGE_LABEL_MAX } from '../src/core.mjs';
 import { prepareRelation, proveRelation } from '../src/formal.mjs';
 import {parseImports,migrateWebsiteView} from '../src/migration.mjs';
 import {increment,arrange} from '../src/graph.ts';
@@ -115,4 +115,24 @@ test('ND candidate is independently replayed; missing premise is not called fals
 test('equivalence requires proof in both directions',()=>{
   const r=rel();r.kind='equivalentTo';r.inputs=['a'];r.formal.premises=['P'];r.formal.goal='Q';assert.notEqual(proveRelation(r).status,'candidate');
   r.formal.goal='P';assert.equal(proveRelation(r).status,'candidate');
+});
+test('edge short labels are optional display text: validated, bounded, and outside the evidence hash',()=>{
+  // 不写就是没有：图上的连线只是不带标注，不影响任何检查。
+  const bare=rel();validateRelation(bare,mini);assert.ok(!('short'in bare));
+  const r=rel();r.short='秩 ⟺ 相抵';validateRelation(r,mini);
+  // 改标注不改证据：relationInput 不读 short，所以已通过的检查不会因此过期。
+  const before=relationInput(r);r.short='相抵标准形';assert.equal(relationInput(r),before);
+  const cases=[['',/空串/],[' 两端有空白 ',/首尾/],['两\n行',/一行/],[`${'长'.repeat(EDGE_LABEL_MAX)}字`,/最多/]];
+  for(const [short,pattern]of cases){const bad=rel();bad.short=short;assert.throws(()=>validateRelation(bad,mini),pattern);}
+  const exact=rel();exact.short='长'.repeat(EDGE_LABEL_MAX);validateRelation(exact,mini);
+  assert.throws(()=>validateRelation({...rel(),short:42},mini),/文本/);
+});
+test('legacy views read as “edge labels on” and the switch is part of the view protocol',()=>{
+  const v=createView(content);v.added=content.nodes.slice(0,2).map(n=>n.id);v.positions=Object.fromEntries(v.added.map((id,i)=>[id,{x:i*210,y:20}]));
+  assert.equal(v.showEdgeLabels,true);
+  const legacy=structuredClone(v);delete legacy.showEdgeLabels;
+  assert.equal(validateView(legacy,content).showEdgeLabels,true,"旧视图缺字段时按“开”读");
+  assert.equal(validateView({...v,showEdgeLabels:false},content).showEdgeLabels,false);
+  assert.throws(()=>validateView({...v,showEdgeLabels:'yes'},content),/标签显示设置/);
+  assert.throws(()=>validateView({...v,labelsOn:true},content),/未定义字段/);
 });

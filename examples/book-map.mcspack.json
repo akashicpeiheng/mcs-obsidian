@@ -2,15 +2,15 @@
   "schema": "mcs-bundle/2",
   "content": {
     "schema": "mcs-content/1",
-    "version": "85f317bf1a735e8b26cf1d041cd27203cc51c6a0a5e73d0110ff3f53b7f911b7",
+    "version": "d5687147c650cfef87741ac04f9f1be68767e129b10f4b43a533cff561c69b96",
     "title": "简明高等代数 · MCS 学习地图",
     "nodes": [
       {
         "id": "jiang:field-axioms",
-        "version": "1-obsidian.1-pilot.1",
+        "version": "2-obsidian.1-pilot.1",
         "title": "域的公理",
         "kind": "Concept",
-        "summary": "F 上定义加法与乘法：加法构成交换群，非零元对乘法构成交换群，乘法对加法满足分配律，且 0 ≠ 1；有理数域 Q、实数域 R、复数域 C 与有限域 F_p 都是例子，解线性方程组只需用到这几条公理。",
+        "summary": "先选好计算规则：加减乘和非零除法使消元可靠；用实数与只有两个元素的域对照，看到哪些直觉需要检查。",
         "chapter": "第1章 线性方程组",
         "source": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.1（印刷 9–12）",
         "sourceReviewed": false,
@@ -19,10 +19,10 @@
       },
       {
         "id": "jiang:elementary-row-operations",
-        "version": "1-obsidian.1-pilot.1",
+        "version": "2-obsidian.1-pilot.1",
         "title": "初等行变换",
         "kind": "Concept",
-        "summary": "把线性方程组的系数与常数项排成增广矩阵 (A|b)，对它施行三种初等行变换（交换两行、某行乘非零常数、某行加上另一行的倍数），所得方程组与原方程组同解，因此解集不变。",
+        "summary": "把方程记成增广矩阵，用三种可撤销的整行操作保持同一组变量下的全部解；先把贯穿例子化成阶梯形。",
         "chapter": "第1章 线性方程组",
         "source": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.2（印刷 13–18）",
         "sourceReviewed": false,
@@ -31,19 +31,19 @@
       },
       {
         "id": "jiang:linear-substitution",
-        "version": "1-obsidian.1",
+        "version": "2-obsidian.1",
         "title": "线性换元",
         "kind": "Concept",
-        "summary": "令 x = Py（P 可逆）把 Ax = b 化为 (AP)y = b：可逆换元给出两个方程组解集之间的一一对应，因此「有解 / 无解」与解的自由度都不变；P 不可逆时可能丢解或添解。",
+        "summary": "给常见的线性组合起新名字，再用正反代入检查能够唯一还原；保持的是明确映射下的解集双射。",
         "chapter": "第1章 线性方程组",
         "source": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.3（印刷 19–23）",
         "sourceReviewed": false,
         "evidenceStatus": "NOT-CLAIMED",
-        "body": "# 线性换元\n\n#线性代数 #教材地图\n\n## 当前范围\n\nREF：此条目继承网站的节点位置，正文尚未完成。\n\n令 x = Py（P 可逆）把 Ax = b 化为 (AP)y = b：可逆换元给出两个方程组解集之间的一一对应，因此「有解 / 无解」与解的自由度都不变；P 不可逆时可能丢解或添解。\n\n## 回查与验证\n\n蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.3（印刷 19–23）\n\n教材原文逐条校勘待完成；本条目不是机器证明。请先确认定义的背景、条件，再判断能否用于当前推理。\n"
+        "body": "# 线性换元\n\n#线性代数 #教材地图\n\n## 当前范围\n\nREF：此条目继承网站的节点位置，正文尚未完成。\n\n给常见的线性组合起新名字，再用正反代入检查能够唯一还原；保持的是明确映射下的解集双射。\n\n## 回查与验证\n\n蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.3（印刷 19–23）\n\n教材原文逐条校勘待完成；本条目不是机器证明。请先确认定义的背景、条件，再判断能否用于当前推理。\n"
       },
       {
         "id": "jiang:solution-cases",
-        "version": "1-obsidian.1-pilot.1",
+        "version": "2-obsidian.1-pilot.1",
         "title": "线性方程组解的情况",
         "kind": "Claim",
         "summary": "有限个方程在域 F 上经合法消元后，矛盾行意味着无解；有解且秩 r=n 时唯一；r<n 时解由 n-r 个自由参数描述。只有在无限域上才由此推出无穷多解；F_q 上有 q^(n-r) 个解。",
@@ -571,7 +571,7 @@
       },
       {
         "id": "jiang:method-elimination",
-        "version": "1-obsidian.1",
+        "version": "2-obsidian.1",
         "title": "Gauss 消元法",
         "kind": "Method",
         "summary": "对域上的有限线性方程组施行合法行变换，判断无解、唯一解或有自由参数；多解是否无穷还依赖标量域。",
@@ -746,8 +746,8 @@
         ],
         "witness": {
           "type": "declared-contract",
-          "status": "REF",
-          "ref": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.1（印刷 9–12）"
+          "status": "DEF",
+          "ref": "ev-jiang-field-axioms"
         },
         "theory": "T_cases",
         "openAssumptions": [],
@@ -777,8 +777,8 @@
         ],
         "witness": {
           "type": "declared-contract",
-          "status": "REF",
-          "ref": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.2（印刷 13–18）"
+          "status": "DEF",
+          "ref": "ev-jiang-elementary-row-operations"
         },
         "theory": "T_cases",
         "openAssumptions": [],
@@ -787,10 +787,10 @@
       {
         "id": "a-jiang:linear-substitution",
         "mode": "definition",
-        "title": "引入线性换元",
+        "title": "引入可逆线性换元并核验解集双射",
         "inputs": [
           {
-            "node": "jiang:elementary-row-operations",
+            "node": "jiang:field-axioms",
             "accepts": [
               "definition",
               "statement"
@@ -815,8 +815,8 @@
         ],
         "witness": {
           "type": "declared-contract",
-          "status": "REF",
-          "ref": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.3（印刷 19–23）"
+          "status": "DEF",
+          "ref": "ev-jiang-linear-substitution"
         },
         "theory": "T_cases",
         "openAssumptions": [],
@@ -825,15 +825,8 @@
       {
         "id": "a-jiang:solution-cases",
         "mode": "deduction",
-        "title": "判定线性方程组解的情况",
+        "title": "用阶梯形与回代判定全部解",
         "inputs": [
-          {
-            "node": "jiang:linear-substitution",
-            "accepts": [
-              "definition",
-              "statement"
-            ]
-          },
           {
             "node": "jiang:elementary-row-operations",
             "accepts": [
@@ -853,8 +846,8 @@
         ],
         "witness": {
           "type": "declared-contract",
-          "status": "REF",
-          "ref": "蒋剑剑、林秀清《简明高等代数》（纸版：厦门大学出版社；本机共享版 PDF：reference/paths/简明高等代数（配套教材共享版）.pdf，208 页 PDF / 正文印刷 1–199 页） 第1章 线性方程组 §1.4（印刷 24–25）"
+          "status": "PROOF",
+          "ref": "ev-jiang-solution-cases"
         },
         "theory": "T_cases",
         "openAssumptions": [],
@@ -2942,33 +2935,60 @@
         "witness": {
           "type": "definitional-dependency",
           "status": "DEF",
-          "scope": "消元过程里「某行乘非零常数」「某行加上另一行的倍数」用的系数与倍数都取自域 F：加法、乘法与除法是域公理给的操作。"
+          "scope": "本程把方程组定义在域 F 上；行操作参数 λ∈F，非零倍乘的逆操作使用域中 λ⁻¹。正文「精确定义」列出全部参数与范围。"
         },
-        "scope": "没有域的公理，「非零常数」与「倍数」都没有对象可谈。"
+        "scope": "这是本程系数结构的定义依赖；一般环上部分行操作仍可做，不能据此声称每次加减都必须有域。"
       },
       {
         "id": "rel-jiang-pre-rowops-substitution",
-        "kind": "hardPrereq",
+        "kind": "analogy",
         "from": "jiang:elementary-row-operations",
+        "to": "jiang:linear-substitution",
+        "witness": {
+          "type": "candidate-analogy",
+          "status": "ILLUSTRATION",
+          "scope": "两种变换都以可逆性保证不丢信息；行变换重组方程，换元重组变量，比较见换元正文「与行变换并排看」。"
+        },
+        "scope": "教学对照：行变换保持原坐标中解集相等，换元通过还原映射保持双射；行变换不是定义可逆换元的必要前置。",
+        "candidateNote": "只类比可逆操作的思路，不把解集相等与解集双射混为一谈。"
+      },
+      {
+        "id": "rel-jiang-pre-substitution-cases",
+        "kind": "analogy",
+        "from": "jiang:linear-substitution",
+        "to": "jiang:solution-cases",
+        "witness": {
+          "type": "candidate-analogy",
+          "status": "ILLUSTRATION",
+          "scope": "换元用新坐标描述全部旧解，回代用自由参数描述全部解：共同检查存在与唯一，定义域分别是 F^n 与 F^{n−r}。"
+        },
+        "scope": "教学联动：全局可逆换元保持全部 n 个变量，参数化只保留自由坐标；分类的正文证明直接依赖行变换与回代。",
+        "candidateNote": "参数化并非必然是 F^n 上的可逆换元；它只在解集和自由参数集合之间给出双射。"
+      },
+      {
+        "id": "rel-jiang-pre-field-substitution",
+        "kind": "hardPrereq",
+        "from": "jiang:field-axioms",
         "to": "jiang:linear-substitution",
         "witness": {
           "type": "definitional-dependency",
           "status": "DEF",
-          "scope": "线性换元 x = Py 把方程组化为 (AP)y = b，其中的矩阵乘法与「可逆 P」都由初等行变换与增广矩阵给出。"
+          "scope": "本程线性换元 T(y)ⱼ=Σₖpⱼₖyₖ 中系数 pⱼₖ 与变量都取自域 F，分量和式由 F 的加乘运算定义。"
         },
-        "scope": "换元的合法性判据（P 可逆）来自初等矩阵那一层。"
+        "scope": "定义性依赖是系数域及其运算；双射条件通过正反代入检查，不预借矩阵乘法或逆矩阵。"
       },
       {
-        "id": "rel-jiang-pre-substitution-cases",
+        "id": "rel-jiang-pre-rowops-cases",
         "kind": "hardPrereq",
-        "from": "jiang:linear-substitution",
+        "from": "jiang:elementary-row-operations",
         "to": "jiang:solution-cases",
         "witness": {
-          "type": "definitional-dependency",
-          "status": "DEF",
-          "scope": "解的情况按「行阶梯形」陈述：阶梯形由初等行变换得到，而自由未知量的个数要在换元后的方程组上数。"
+          "type": "proof-dependency",
+          "status": "PROOF",
+          "ref": "ev-jiang-solution-cases",
+          "scope": "解的分类正文第一步使用初等行变换保持原解集，再在阶梯形上从最后一行开始回代，构造自由参数到解集的双射。"
         },
-        "scope": "解集的存在与自由度必须在化简后的等价方程组上判定。"
+        "scope": "正文证明依赖，证据同时登记两端。自由变量数来自系数列主元；不需先做可逆换元，也不借用后续秩定理。"
       },
       {
         "id": "rel-jiang-pre-matrixops-multiplication",
@@ -3610,7 +3630,7 @@
     "sources": [
       {
         "path": "mcs-web/data/cases/jiang.mjs",
-        "sha256": "1aca2180f6c3e2c1281058f13de1a16350545553a5d9ee860d26d7756bda5d9e"
+        "sha256": "c75ed9885b8ac463ac8cf0b98c023bc3fae066765486fa214d6162e8e458156e"
       },
       {
         "path": "mcs-web/core/planner.mjs",
@@ -3618,7 +3638,7 @@
       },
       {
         "path": "mcs-web/web/src/network.ts",
-        "sha256": "309ea5783e0cb1498250ddeee4c3e6f1ef4f8596e1653ac4b9b9a4e15297c632"
+        "sha256": "2983d30ce4c83da0aa1325bb99634cd4fe709ae0c61bf59ffa9daefb13e03d04"
       },
       {
         "path": "mcs-web/web/src/network-order.ts",
@@ -3654,7 +3674,7 @@
     "id": "mcs-example:book-map",
     "name": "简明高等代数 · 全书节点地图",
     "revision": 0,
-    "contentVersion": "85f317bf1a735e8b26cf1d041cd27203cc51c6a0a5e73d0110ff3f53b7f911b7",
+    "contentVersion": "d5687147c650cfef87741ac04f9f1be68767e129b10f4b43a533cff561c69b96",
     "added": [
       "jiang:field-axioms",
       "jiang:elementary-row-operations",
@@ -3726,60 +3746,60 @@
         "y": 523.4226603828713
       },
       "jiang:basis-dimension": {
-        "x": 1213.6532236753355,
-        "y": 629.4128063729146
+        "x": 1063.1837322583829,
+        "y": 496.10846922565185
       },
       "jiang:bilinear-quadratic-form": {
-        "x": 589.4884835388661,
-        "y": 1182.3745142318626
+        "x": 767.4874209992258,
+        "y": 1275.795563318942
       },
       "jiang:block-matrix": {
-        "x": 28,
-        "y": 868.0000000000001
+        "x": 374.26038807432263,
+        "y": 1547.5742752749559
       },
       "jiang:chinese-remainder": {
         "x": 188.42572472504423,
         "y": 1361.7396119256775
       },
       "jiang:cofactor-expansion": {
-        "x": 1127.5742752749559,
-        "y": 69.11252631207105
+        "x": 404.4939362759271,
+        "y": 1294.6873901242168
       },
       "jiang:column-vector-space": {
         "x": 1049.865334794732,
         "y": 973
       },
       "jiang:coordinate-transition": {
+        "x": 240.15176940579795,
+        "y": 920.0249876475696
+      },
+      "jiang:cramer-rule": {
         "x": 257.27783245822184,
         "y": 713.3441431012967
       },
-      "jiang:cramer-rule": {
-        "x": 868,
-        "y": 238
-      },
       "jiang:determinant-definition": {
-        "x": 240.15176940579795,
-        "y": 920.0249876475696
+        "x": 291.06280420731366,
+        "y": 1121.0681175313705
       },
       "jiang:determinant-multiplicative": {
         "x": 481.0459910055096,
         "y": 370.84147908027177
       },
       "jiang:determinant-properties": {
-        "x": 475.29317807212584,
-        "y": 1016.934052557865
+        "x": 589.4884835388661,
+        "y": 1182.3745142318626
       },
       "jiang:division-algorithm": {
-        "x": 1260.7068219278742,
-        "y": 1016.9340525578649
+        "x": 1284.9377271211827,
+        "y": 817.3745942927644
       },
       "jiang:eigenvector": {
-        "x": 968.5125790007742,
-        "y": 1275.7955633189417
+        "x": 1146.5115164611339,
+        "y": 1182.3745142318626
       },
       "jiang:elementary-matrix": {
-        "x": 1254.9540089944908,
-        "y": 370.84147908027205
+        "x": 1072.5606655989507,
+        "y": 272.13513772860017
       },
       "jiang:elementary-row-operations": {
         "x": 868,
@@ -3790,96 +3810,96 @@
         "y": 868
       },
       "jiang:fundamental-theorem-algebra-proof": {
-        "x": 374.26038807432246,
-        "y": 188.42572472504423
+        "x": 28,
+        "y": 868.0000000000001
       },
       "jiang:gcd-polynomial": {
         "x": 868,
         "y": 1078
       },
       "jiang:inner-product": {
-        "x": 1284.9377271211827,
-        "y": 817.3745942927644
+        "x": 1213.6532236753355,
+        "y": 629.4128063729146
       },
       "jiang:integer-polynomial": {
-        "x": 568.1531423866439,
-        "y": 1422.0684632600883
+        "x": 1167.8468576133564,
+        "y": 1422.068463260088
       },
       "jiang:invertible-matrix": {
+        "x": 475.29317807212584,
+        "y": 1016.934052557865
+      },
+      "jiang:irreducible-polynomial": {
+        "x": 1260.7068219278742,
+        "y": 1016.9340525578649
+      },
+      "jiang:isometry": {
+        "x": 968.5125790007742,
+        "y": 1275.7955633189417
+      },
+      "jiang:linear-dependence": {
+        "x": 868,
+        "y": 1708
+      },
+      "jiang:linear-map-matrix": {
         "x": 451.06227287881734,
         "y": 817.3745942927642
       },
-      "jiang:irreducible-polynomial": {
-        "x": 1146.5115164611339,
-        "y": 1182.3745142318626
-      },
-      "jiang:isometry": {
-        "x": 767.4874209992258,
-        "y": 1275.795563318942
-      },
-      "jiang:linear-dependence": {
-        "x": 608.4257247250446,
-        "y": 1666.8874736879293
-      },
-      "jiang:linear-map-matrix": {
-        "x": 522.346776324664,
-        "y": 629.4128063729149
-      },
       "jiang:linear-substitution": {
-        "x": 1444.937195792686,
-        "y": 1121.0681175313707
+        "x": 868,
+        "y": 28
       },
       "jiang:low-order-determinant": {
-        "x": 1666.8874736879288,
-        "y": 608.4257247250441
+        "x": 1361.7396119256773,
+        "y": 188.42572472504412
       },
       "jiang:matrix-equivalence": {
         "x": 1666.8874736879288,
-        "y": 1127.5742752749559
+        "y": 608.4257247250441
       },
       "jiang:matrix-multiplication": {
-        "x": 971.6945918768624,
-        "y": 1489.407621143715
+        "x": 1331.506063724073,
+        "y": 1294.6873901242168
       },
       "jiang:matrix-operations": {
         "x": 1049.865334794732,
         "y": 763
       },
       "jiang:matrix-rank": {
-        "x": 1072.5606655989507,
-        "y": 272.13513772860017
+        "x": 522.346776324664,
+        "y": 629.4128063729149
       },
       "jiang:maximal-independent-set": {
-        "x": 1361.7396119256773,
-        "y": 1547.5742752749559
+        "x": 1666.8874736879288,
+        "y": 1127.5742752749559
       },
       "jiang:method-completing-square": {
-        "x": 868,
-        "y": 28
+        "x": 374.26038807432246,
+        "y": 188.42572472504423
       },
       "jiang:method-elimination": {
-        "x": 1708,
-        "y": 868
+        "x": 1547.5742752749559,
+        "y": 1361.7396119256773
       },
       "jiang:method-euclidean-algorithm": {
-        "x": 374.26038807432263,
-        "y": 1547.5742752749559
+        "x": 608.4257247250446,
+        "y": 1666.8874736879293
       },
       "jiang:method-reduce-to-normal-form": {
-        "x": 1395.414881305393,
-        "y": 523.4226603828711
+        "x": 1254.9540089944908,
+        "y": 370.84147908027205
       },
       "jiang:minimax-principle": {
-        "x": 69.11252631207094,
-        "y": 608.4257247250443
+        "x": 188.42572472504412,
+        "y": 374.26038807432263
       },
       "jiang:normal-operator-calculus": {
-        "x": 291.06280420731366,
-        "y": 1121.0681175313705
+        "x": 568.1531423866439,
+        "y": 1422.0684632600883
       },
       "jiang:orthogonalization": {
-        "x": 1127.5742752749559,
-        "y": 1666.8874736879288
+        "x": 1361.7396119256773,
+        "y": 1547.5742752749559
       },
       "jiang:partial-fraction": {
         "x": 69.11252631207105,
@@ -3890,20 +3910,20 @@
         "y": 272.13513772860017
       },
       "jiang:polar-svd": {
-        "x": 188.42572472504412,
-        "y": 374.26038807432263
+        "x": 69.11252631207094,
+        "y": 608.4257247250443
       },
       "jiang:polynomial-function": {
-        "x": 764.3054081231377,
-        "y": 1489.407621143715
+        "x": 1444.937195792686,
+        "y": 1121.0681175313707
       },
       "jiang:polynomial-ring": {
-        "x": 868,
-        "y": 1708
+        "x": 1127.5742752749559,
+        "y": 1666.8874736879288
       },
       "jiang:positive-definite": {
-        "x": 1361.7396119256773,
-        "y": 188.42572472504412
+        "x": 1127.5742752749559,
+        "y": 69.11252631207105
       },
       "jiang:quadratic-normal-form": {
         "x": 672.8162677416174,
@@ -3914,24 +3934,24 @@
         "y": 973.0000000000001
       },
       "jiang:similar-criterion": {
-        "x": 404.4939362759271,
-        "y": 1294.6873901242168
+        "x": 971.6945918768624,
+        "y": 1489.407621143715
       },
       "jiang:solution-cases": {
-        "x": 1063.1837322583829,
-        "y": 496.10846922565185
+        "x": 1495.848230594202,
+        "y": 920.0249876475693
       },
       "jiang:solution-structure": {
-        "x": 1167.8468576133564,
-        "y": 1422.068463260088
+        "x": 1478.7221675417782,
+        "y": 713.3441431012965
       },
       "jiang:vector-space-axioms": {
-        "x": 1331.506063724073,
-        "y": 1294.6873901242168
+        "x": 764.3054081231377,
+        "y": 1489.407621143715
       },
       "pilot:affine-fibre": {
-        "x": 1547.5742752749559,
-        "y": 1361.7396119256773
+        "x": 1708,
+        "y": 868
       },
       "pilot:kernel": {
         "x": 868,
@@ -3942,16 +3962,16 @@
         "y": 763
       },
       "pilot:particular": {
-        "x": 1478.7221675417782,
-        "y": 713.3441431012965
+        "x": 868,
+        "y": 238
       },
       "pilot:rank-nullity": {
         "x": 608.4257247250441,
         "y": 69.11252631207105
       },
       "pilot:row-equivalence": {
-        "x": 1495.848230594202,
-        "y": 920.0249876475693
+        "x": 1395.414881305393,
+        "y": 523.4226603828711
       }
     },
     "locked": [],
@@ -4143,6 +4163,7 @@
     "bindings": {},
     "showRelations": true,
     "showActions": true,
+    "showEdgeLabels": true,
     "route": null,
     "display": {
       "nodeMode": "adaptive",

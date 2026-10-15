@@ -1,8 +1,8 @@
-import { parseFormula, parseType } from '../../mcs-web/core/formal/language.mjs';
-import { kernelTheory, assembleProof, assembleBundle } from '../../mcs-web/core/formal/certificate.mjs';
-import { search, collectHypotheses } from '../../mcs-web/core/formal/search.mjs';
-import { sameFormula } from '../../mcs-web/core/formal/terms.mjs';
-import { digest } from '../../mcs-web/core/formal/codec.mjs';
+import { parseFormula, parseType } from '../upstream/mcs-web/core/formal/language.mjs';
+import { kernelTheory, assembleProof, assembleBundle } from '../upstream/mcs-web/core/formal/certificate.mjs';
+import { search, collectHypotheses } from '../upstream/mcs-web/core/formal/search.mjs';
+import { sameFormula } from '../upstream/mcs-web/core/formal/terms.mjs';
+import { digest } from '../upstream/mcs-web/core/formal/codec.mjs';
 import { relationInput } from './core.mjs';
 import {prepareReferences,prepareInstantiation,prepareFinite} from './witness.mjs';
 

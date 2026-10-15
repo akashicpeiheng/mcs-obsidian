@@ -29,13 +29,18 @@ const backupRoot=resolve('runtime/installed-backup');
 
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const exists=path=>stat(path).then(()=>true,()=>false);
-async function inventory(dir){
+/*
+ * 只安装分发包里的程序文件：Python 运行 dist/ 里的 witness.py 时会落下 __pycache__，
+ * 那属于本机缓存，不属于插件产物（scripts/package.mjs 打包时同样排除它）。
+ */
+const payloadFilter=path=>!path.split(/[\\/]/).includes('__pycache__')&&!path.endsWith('.pyc');
+async function inventory(dir,filter=()=>true){
   const rows=[];
   async function walk(current){
     for(const entry of await readdir(current,{withFileTypes:true})){
       const path=join(current,entry.name);
       if(entry.isDirectory())await walk(path);
-      else if(entry.isFile())rows.push({file:relative(dir,path).replaceAll('\\','/'),sha256:sha(await readFile(path)),size:(await stat(path)).size});
+      else if(entry.isFile()&&filter(relative(dir,path).replaceAll('\\','/')))rows.push({file:relative(dir,path).replaceAll('\\','/'),sha256:sha(await readFile(path)),size:(await stat(path)).size});
     }
   }
   if(await exists(dir))await walk(dir);
@@ -69,7 +74,7 @@ if(!dryRun){
 }
 
 // ---- 安装：只写程序文件 ------------------------------------------------------
-const program=await inventory(distDir);
+const program=await inventory(distDir,payloadFilter);
 if(!dryRun)for(const entry of program){
   const target=join(pluginDir,entry.file);
   await mkdir(dirname(target),{recursive:true});

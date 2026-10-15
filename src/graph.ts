@@ -1,7 +1,7 @@
-import { placeNewNodes } from '../../mcs-web/web/src/node-placement.ts';
-import { coreRingArrangement } from '../../mcs-web/web/src/network-order.ts';
-import { layout as freeLayout } from '../../mcs-web/web/src/network.ts';
-import type { NetworkEdge, NetworkGraph } from '../../mcs-web/web/src/network.ts';
+import { placeNewNodes } from '../upstream/mcs-web/web/src/node-placement.ts';
+import { coreRingArrangement } from '../upstream/mcs-web/web/src/network-order.ts';
+import { layout as freeLayout } from '../upstream/mcs-web/web/src/network.ts';
+import type { NetworkEdge, NetworkGraph } from '../upstream/mcs-web/web/src/network.ts';
 import type { Content, ViewDocument } from './types';
 
 export function links(content:Content,view:ViewDocument) {

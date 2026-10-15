@@ -16,7 +16,7 @@ await copyFile(new URL('../manifest.json',import.meta.url),new URL('../dist/mani
 // 站点现用的字标与紫色徽记随插件打包（`assets/`），离线可用；源图与导出记录见 design/mcs-logo-v13 与 design/mcs-logo-v6。
 await mkdir(new URL('../dist/assets/',import.meta.url),{recursive:true});
 for(const asset of ['wordmark.png','emblem.png'])await copyFile(new URL(`../assets/${asset}`,import.meta.url),new URL(`../dist/assets/${asset}`,import.meta.url));
-await copyFile(new URL('../../mcs-foundations/validation/certification/kernel.py',import.meta.url),new URL('../dist/kernel.py',import.meta.url));
+await copyFile(new URL('../upstream/mcs-foundations/validation/certification/kernel.py',import.meta.url),new URL('../dist/kernel.py',import.meta.url));
 await copyFile(new URL('../src/witness.py',import.meta.url),new URL('../dist/witness.py',import.meta.url));
 await mkdir(new URL('../dist/proofs/',import.meta.url),{recursive:true});
 await mkdir(new URL('../dist/scripts/',import.meta.url),{recursive:true});

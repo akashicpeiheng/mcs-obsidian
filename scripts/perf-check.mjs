@@ -1,4 +1,4 @@
-import {chromium} from '../../mcs-web/node_modules/playwright-core/index.mjs';
+import {chromium} from 'playwright-core';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {execFile} from 'node:child_process';
 import {basename,dirname} from 'node:path';

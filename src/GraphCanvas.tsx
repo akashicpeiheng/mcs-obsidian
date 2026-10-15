@@ -1,9 +1,9 @@
 import {forwardRef,useEffect,useImperativeHandle,useLayoutEffect,useRef,useId,useState} from 'react';
-import {MotionEngine,adaptiveCards,labelPlacements,type Positions} from './motion';
+import {MotionEngine,adaptiveCards,labelPlacements,edgeLabelsVisible,EDGE_LABEL_MIN_SCALE,type Positions} from './motion';
 import {links} from './graph';
 import {ActionRenderer} from './ActionRenderer';
 import {readPalette,paletteKey,type CanvasPalette} from './palette';
-import {relationState} from './core.mjs';
+import {relationState,EDGE_LABEL_MAX} from './core.mjs';
 import type {Content,ViewDocument,CheckReport,Relation} from './types';
 
 type Camera=ViewDocument['camera'];
@@ -16,8 +16,10 @@ interface Props {
   learning:LearningDisplay|null;onSelect:(id:string)=>void;onRead:(id:string)=>void;onRemove:(id:string)=>void;onEdit:(r:Relation)=>void;
   onBegin:()=>void;onCommit:(snapshot:GraphSnapshot,locked?:string[])=>void;onRunning:(running:boolean)=>void;
 }
-interface Edge {id:string;inputs:string[];output:string;title:string;formal:Relation|null;state:string}
-interface EdgeElements {root:SVGGElement;path:SVGPathElement;junction:SVGGElement;arrow:SVGPolygonElement}
+interface Edge {id:string;inputs:string[];output:string;title:string;short:string;formal:Relation|null;state:string}
+interface EdgeElements {root:SVGGElement;path:SVGPathElement;junction:SVGGElement;arrow:SVGPolygonElement;label:SVGGElement;labelRect:SVGRectElement;labelText:SVGTextElement}
+/** 边标签在**屏幕**坐标里的锚点与文字；每帧重算，所以随相机移动与缩放一起走。 */
+interface EdgeLabelPaint {x:number;y:number;width:number;need:number;span:number;text:string}
 interface ActionShape {inputs:{x:number;y:number}[];joint:{x:number;y:number};end:{x:number;y:number};jointInputs:number}
 const batchKinds=['idle','focused','dimmed','active','failed'] as const;
 type BatchKind=typeof batchKinds[number];
@@ -30,6 +32,9 @@ type StyleKey='display'|'opacity'|'strokeOpacity'|'fillOpacity'|'fontSize'|'tran
 const styles=new WeakMap<SVGElement,Partial<Record<StyleKey,string>>>();
 function style(el:SVGElement,key:StyleKey,value:string){let last=styles.get(el);if(!last){last={};styles.set(el,last);}if(last[key]!==value){el.style[key]=value;last[key]=value;}}
 function transform(el:SVGElement,x:number,y:number,scale=1,angle=0){const a=Math.cos(angle)*scale,b=Math.sin(angle)*scale;style(el,'transform',`matrix(${a},${b},${-b},${a},${round(x)},${round(y)})`);}
+/** 文本内容用真实文本节点写，不用 `textContent` 属性：后者不进 DOM 文本，辅助技术读不到。 */
+const texts=new WeakMap<SVGTextElement,string>();
+function setText(el:SVGTextElement,value:string){if(texts.get(el)!==value){el.textContent=value;texts.set(el,value);}}
 function titleLines(title:string){const lines:string[]=[];let line='',width=0;for(const ch of title){const w=/[\x00-\x7f]/.test(ch)?.55:1;if(width+w>14){lines.push(line);line='';width=0;}line+=ch;width+=w;}if(line)lines.push(line);return lines;}
 function checkCaption(states:string[],fallback:string){
   if(!states.length)return fallback;
@@ -52,10 +57,22 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
   const replay=useRef({step:-1,elapsed:0});
   const drag=useRef<{id:string|null;x:number;y:number;px:number;py:number;moved:boolean;shift:boolean}|null>(null),wheelTimer=useRef<ReturnType<typeof setTimeout>|null>(null),wheelActive=useRef(false);
   const topology=useRef(''),lastCommand=useRef(-1),geometryDirty=useRef(true);
+  /* 关系线上简短表达的锚点：屏幕坐标，每帧随相机与缩放重算。 */
+  const edgeLabels=useRef(new Map<string,EdgeLabelPaint>());
+  function paintEdgeLabel(id:string){
+    const els=edgeEls.current.get(id),info=edgeLabels.current.get(id);
+    if(!els)return;
+    if(!info||!info.text){style(els.label,'display','none');return;}
+    setText(els.labelText,info.text);attr(els.labelRect,'width',String(info.width));attr(els.labelRect,'x',String(-info.width/2));
+    /* 这三个数据属性是量出来的显示依据（要求宽度 / 判定宽度 / 连线在屏幕上的长度），便于在真实界面里核对为何显示或隐藏。 */
+    attr(els.label,'data-edge-label-width',String(Math.round(info.width)));attr(els.label,'data-edge-label-need',String(Math.round(info.need)));attr(els.label,'data-edge-label-span',String(Math.round(info.span)));
+    /* 显式给值：置空只会退回样式表里的 display:none，标签又会消失。 */
+    transform(els.label,info.x,info.y,1/camera.current.scale);style(els.label,'display','inline');
+  }
   const visible=new Set(props.learning?.visible??props.view.added),routeActions=props.learning?new Set(props.view.route?.events.map(e=>e.actionId)??[]):null;
   const edges:Edge[]=[];
-  if(props.view.showActions)for(const a of props.content.actions){if(routeActions&&!routeActions.has(a.id))continue;for(const output of a.outputs)if(visible.has(output.node)&&a.inputs.length&&a.inputs.every(i=>visible.has(i.node)))edges.push({id:`a:${a.id}:${output.node}`,inputs:a.inputs.map(i=>i.node),output:output.node,title:`${a.title}：全部前提共同输入；${a.witness.status}`,formal:null,state:a.id});}
-  if(props.view.showRelations)for(const r of props.view.relations)if(visible.has(r.output)&&r.inputs.every(id=>visible.has(id)))edges.push({id:`r:${r.id}`,inputs:r.inputs,output:r.output,title:r.explanation,formal:r,state:relationState(r,props.content,props.reports,props.view)});
+  if(props.view.showActions)for(const a of props.content.actions){if(routeActions&&!routeActions.has(a.id))continue;for(const output of a.outputs)if(visible.has(output.node)&&a.inputs.length&&a.inputs.every(i=>visible.has(i.node)))edges.push({id:`a:${a.id}:${output.node}`,inputs:a.inputs.map(i=>i.node),output:output.node,title:`${a.title}：全部前提共同输入；${a.witness.status}`,short:'',formal:null,state:a.id});}
+  if(props.view.showRelations)for(const r of props.view.relations)if(visible.has(r.output)&&r.inputs.every(id=>visible.has(id)))edges.push({id:`r:${r.id}`,inputs:r.inputs,output:r.output,title:r.explanation,short:r.short??'',formal:r,state:relationState(r,props.content,props.reports,props.view)});
   const edgeData=useRef(edges);edgeData.current=edges;
   const names=useRef(new Map(props.content.nodes.map(n=>[n.id,n])));names.current=new Map(props.content.nodes.map(n=>[n.id,n]));
 
@@ -94,7 +111,7 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
     transform(g,c.x,c.y,c.scale);
     const h=hover.current,related=new Set<string>();
     if(h){related.add(h);for(const edge of edgeData.current)if(edge.inputs.includes(h)||edge.output===h)for(const id of [...edge.inputs,edge.output])related.add(id);}
-    const shown=new Set(learn?.visible??p.view.added),used=new Set(learn?.uses??[]),fresh=new Set(learn?.added??[]),missing=new Set(learn?.missing??[]),labels:{id:string;x:number;y:number;title:string;priority:boolean}[]=[];
+    const shown=new Set(learn?.visible??p.view.added),used=new Set(learn?.uses??[]),fresh=new Set(learn?.added??[]),missing=new Set(learn?.missing??[]),labels:{id:string;x:number;y:number;title:string;priority:'high'|'normal'|'edge';edgeWidth?:number;span?:number}[]=[];
     for(const [id,node]of nodes.current){const pos=ps[id];if(!pos)continue;const x=c.x+(pos.x+86)*c.scale,y=c.y+(pos.y+29)*c.scale,focused=id===p.selected||id===h;
       const inView=x>-190&&x<size.current.width+190&&y>-70&&y<size.current.height+70;
       style(node,'display',shown.has(id)&&inView&&!(learn&&fresh.has(id)&&stage<2)?'':'none');
@@ -104,10 +121,38 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
       const card=node.querySelector<SVGGElement>('.mcs-node-card'),dot=node.querySelector<SVGCircleElement>('.mcs-node-circle'),label=node.querySelector<SVGTextElement>('.mcs-node-label');
       if(card){style(card,'display',cards.current||focused?'':'none');transform(card,0,0,focused?Math.max(1,1/c.scale):1);}
       if(dot){style(dot,'display',cards.current||focused?'none':'');transform(dot,0,0,1/c.scale);}
-      if(label&&!cards.current&&!focused&&shown.has(id)&&inView&&(!h||related.has(id)))labels.push({id,x,y,title:names.current.get(id)?.title??id,priority:false});
+      if(label&&!cards.current&&!focused&&shown.has(id)&&inView&&(!h||related.has(id)))labels.push({id,x,y,title:names.current.get(id)?.title??id,priority:'normal'});
     }
-    const placed=labelPlacements(labels,size.current.width,size.current.height);
-    for(const [id,node]of nodes.current){const label=node.querySelector<SVGTextElement>('.mcs-node-label'),n=ps[id],pos=placed.get(id);if(label){style(label,'display',pos?'':'none');if(pos&&n){attr(label,'x',String(round(pos.x-c.x-(n.x+86)*c.scale)));attr(label,'y',String(round(pos.y-c.y-(n.y+29)*c.scale)));transform(label,0,0,1/c.scale);style(label,'fontSize','11px');}}}
+    /*
+     * 关系线上的简短表达与节点标签共用一次占位：节点标签先放，边标签随后补空位，
+     * 放不下也不丢弃（`labelPlacements` 里说明）。全部按屏幕坐标算，所以缩放时标签不跟着变小。
+     */
+    const showEdgeLabels=props.view.showEdgeLabels!==false;
+    const edgeLabelWanted=new Map<string,{x:number;y:number;text:string;need:number;span:number}>();
+    edgeLabels.current.clear();
+    /* 放好的标签要避开卡片：卡片矩形按屏幕坐标收进来当障碍。 */
+    const nodeLabelObstacles:{x:number;y:number;w:number;h:number}[]=[];
+    for(const [id,node]of nodes.current)if(node.style.display!=='none'){const pos=ps[id];if(!pos)continue;const factor=cards.current||id===p.selected||id===h?Math.max(1,1/c.scale):1;nodeLabelObstacles.push({x:c.x+(pos.x+86)*c.scale-86*factor,y:c.y+(pos.y+29)*c.scale-(29+(titleLines(names.current.get(id)?.title??'').length-1)*7)*factor,w:172*factor,h:(58+(titleLines(names.current.get(id)?.title??'').length-1)*14)*factor});}
+    if(showEdgeLabels&&props.view.showRelations&&!cards.current&&edgeLabelsVisible(c.scale))for(const edge of edgeData.current)if(edge.formal&&edge.short){
+      const to=ps[edge.output],ins=edge.inputs.map(n=>ps[n]);if(!to||ins.some(v=>!v))continue;
+      if(edgeEls.current.get(edge.id)?.root.style.display==='none')continue;
+      const mean={x:ins.reduce((s,v)=>s+v.x+86,0)/ins.length,y:ins.reduce((s,v)=>s+v.y+29,0)/ins.length},target={x:to.x+86,y:to.y+29};
+      const mx=(mean.x+target.x)/2,my=(mean.y+target.y)/2,sx=c.x+mx*c.scale,sy=c.y+my*c.scale;
+      const ddx=target.x-mean.x,ddy=target.y-mean.y,len=Math.max(.001,Math.hypot(ddx,ddy)),off=10/c.scale;
+      /* 可用宽度必须按**屏幕像素**算：乘上相机缩放，缩得越小能放下的标注越少，
+       * 于是远景留下整张网络、放大后才逐条读出关系。判定本身在 `motion.edgeLabelFits` 里，可单测；
+       * 这里用「各前提中心 → 结论」在屏幕上的长度当可用宽度（汇合点由这两端定出，误差可忽略）。 */
+      const screenLength=len*c.scale,need=Math.max(40,[...edge.short].length*10+10);
+      const root=edgeEls.current.get(edge.id)?.root;if(root){attr(root,'data-edge-label-need',String(Math.round(need)));attr(root,'data-edge-label-span',String(Math.round(screenLength)));}
+      edgeLabelWanted.set(edge.id,{x:sx-ddy/len*off,y:sy+ddx/len*off,text:edge.short,need,span:screenLength});
+      labels.push({id:`edge:${edge.id}`,x:sx,y:sy,title:edge.short,priority:'edge',edgeWidth:need,span:screenLength});
+    }
+    const placed=labelPlacements(labels,size.current.width,size.current.height,nodeLabelObstacles);
+    for(const [id,node]of nodes.current){const label=node.querySelector<SVGTextElement>('.mcs-node-label'),n=ps[id],spot=placed.get(id);if(label){style(label,'display',spot?'':'none');if(spot&&n){attr(label,'x',String(round(spot.x-c.x-(n.x+86)*c.scale)));attr(label,'y',String(round(spot.y-c.y-(n.y+29)*c.scale)));transform(label,0,0,1/c.scale);style(label,'fontSize','11px');}}}
+    /* 显示宽度按**中文字符数**估：SVG 拿不到可靠的字形宽度，宁可略宽也不要压住线。
+     * 标签先于边绘制（DOM 顺序），所以底衬直接盖在连线上，文字保持可读。 */
+    for(const [key,wanted]of edgeLabelWanted){const spot=placed.get(`edge:${key}`)??wanted;edgeLabels.current.set(key,{x:spot.x-c.x,y:spot.y-c.y,width:Math.max(18,[...wanted.text].length*10+10),need:wanted.need,span:wanted.span,text:wanted.text});}
+    for(const [id]of edgeEls.current)paintEdgeLabel(id);
     const batchData=new Map(batchKinds.map(k=>[k,[] as ActionShape[]]));actionHits.current=[];
     for(const edge of edgeData.current){const dom=edgeEls.current.get(edge.id),to=ps[edge.output],inputs=edge.inputs.map(id=>ps[id]);if(!to||inputs.some(v=>!v))continue;
       const ends=[...inputs,to],minX=Math.min(...ends.map(v=>c.x+(v.x+86)*c.scale)),maxX=Math.max(...ends.map(v=>c.x+(v.x+86)*c.scale)),minY=Math.min(...ends.map(v=>c.y+(v.y+29)*c.scale)),maxY=Math.max(...ends.map(v=>c.y+(v.y+29)*c.scale));
@@ -117,7 +162,7 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
       // A midpoint can coincide with one of the premises in a vertical route.
       // Put joint premises beside the flow so the ∧ remains visible.
       if(inputs.length>1){const dx=target.x-mean.x,dy=target.y-mean.y,length=Math.max(.001,Math.hypot(dx,dy));j.x-=dy/length*30/c.scale;j.y+=dx/length*30/c.scale;}
-      const dx=target.x-j.x,dy=target.y-j.y,dist=Math.max(.001,Math.hypot(dx,dy)),focused=edge.output===p.selected||edge.output===h,card=cards.current||focused;
+      const dx=target.x-j.x,dy=target.y-j.y,dist=Math.max(.001,Math.hypot(dx,dy)),hovered=!!h&&(edge.output===h||edge.inputs.includes(h)),focused=edge.output===p.selected||hovered,card=cards.current||focused;
       const factor=focused?Math.max(1,1/c.scale):1,halfW=86*factor,halfH=(29+(titleLines(names.current.get(edge.output)?.title??'').length-1)*7)*factor;
       const trim=card?Math.min(halfW/Math.max(.001,Math.abs(dx)),halfH/Math.max(.001,Math.abs(dy))):6/(c.scale*dist),t=Math.min(.9,trim);
       const end={x:target.x-dx*t,y:target.y-dy*t};
@@ -133,7 +178,7 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
       dom.root.classList.toggle('replay-active',highlighted&&stage>=1);dom.root.classList.toggle('replay-failed',highlighted&&missing.size>0);
       // Group opacity allocates a separate surface spanning the whole joint edge.
       // Apply alpha to its primitives instead, preserving the joint structure.
-      const opacity=h&&!edge.inputs.includes(h)&&edge.output!==h?'0.08':highlighted?(stage>=1?'1':'0.25'):h?'1':'0.55';
+      const opacity=hovered?'1':h?'0.08':highlighted?(stage>=1?'1':'0.25'):'0.55';
       style(dom.root,'opacity','');style(dom.path,'opacity','1');style(dom.path,'strokeOpacity',opacity);style(dom.arrow,'opacity','1');style(dom.arrow,'fillOpacity',opacity);style(dom.junction,'opacity','1');style(dom.junction,'fillOpacity',opacity);style(dom.junction,'strokeOpacity',opacity);
     }
     const canvas=actionCanvas.current;if(canvas&&!actionRenderer.current)actionRenderer.current=new ActionRenderer(canvas,()=>paint());
@@ -212,7 +257,7 @@ export const GraphCanvas=forwardRef<GraphApi,Props>(function GraphCanvas(props,r
   return <><canvas ref={actionCanvas} className="mcs-actions-canvas" aria-hidden="true"/><svg ref={svg} className="mcs-graph" role="application" aria-labelledby={`${uid}-graph-title`} data-motion="idle" onPointerDown={e=>pointerDown(e,null)} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onKeyDown={e=>{if(e.target===e.currentTarget&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-'].includes(e.key)){e.preventDefault();const c=camera.current,delta=e.shiftKey?120:40;moveCamera({...c,x:c.x+(e.key==='ArrowLeft'?delta:e.key==='ArrowRight'?-delta:0),y:c.y+(e.key==='ArrowUp'?delta:e.key==='ArrowDown'?-delta:0),scale:Math.max(.15,Math.min(4,c.scale*(e.key==='+'?1.2:e.key==='-'?1/1.2:1)))});}}} tabIndex={0}>
     <title id={`${uid}-graph-title`}>数学关系网络</title><defs><pattern id={`${uid}-grid`} width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor"/></pattern></defs><rect width="100%" height="100%" fill={`url(#${uid}-grid)`} className="mcs-grid"><title ref={el=>{actionTitle.current=el;}}>联合行动：所有前提共同输入</title></rect>
     <g ref={group}>
-      {edges.filter(edge=>edge.formal).map(edge=><g key={edge.id} ref={el=>{if(el)edgeEls.current.set(edge.id,{root:el,path:el.querySelector('path')!,junction:el.querySelector('.mcs-junction')!,arrow:el.querySelector('.mcs-edge-arrow')!});else edgeEls.current.delete(edge.id);}} className={edge.formal?`mcs-formal-edge ${edge.state}`:'mcs-hyperedge'} role={edge.formal?'button':undefined} tabIndex={edge.formal?0:undefined} aria-labelledby={`${uid}-edge-${edge.id}`} onPointerDown={e=>e.stopPropagation()} onClick={()=>{if(edge.formal)latest.current.onEdit(edge.formal);}} onKeyDown={e=>{if(edge.formal&&(e.key==='Enter'||e.key===' ')){e.preventDefault();latest.current.onEdit(edge.formal);}}}><title id={`${uid}-edge-${edge.id}`}>{edge.title} · {edge.formal?edge.state:''}</title><path fill="none"/><polygon className="mcs-edge-arrow" fill="currentColor" points="0,0 -7,-3 -7,3"/><g className="mcs-junction"><circle r={8}/><text x={0} y={3} textAnchor="middle">{edge.inputs.length>1?'∧':'·'}</text></g></g>)}
+      {edges.filter(edge=>edge.formal).map(edge=>{const id=edge.id;return <g key={id} ref={el=>{if(!el){edgeEls.current.delete(id);return;}const junction=el.querySelector<SVGGElement>('.mcs-junction'),arrow=el.querySelector<SVGPolygonElement>('.mcs-edge-arrow'),path=el.querySelector<SVGPathElement>('path'),label=el.querySelector<SVGGElement>('.mcs-edge-label'),labelRect=el.querySelector<SVGRectElement>('.mcs-edge-label-bg'),labelText=el.querySelector<SVGTextElement>('.mcs-edge-label-text');if(junction&&arrow&&path&&label&&labelRect&&labelText){edgeEls.current.set(id,{root:el,path,junction,arrow,label,labelRect,labelText});paintEdgeLabel(id);}}} className={`mcs-formal-edge ${edge.state}`} role="button" tabIndex={0} aria-labelledby={`${uid}-edge-${id}`} onPointerDown={e=>e.stopPropagation()} onClick={()=>{if(edge.formal)latest.current.onEdit(edge.formal);}} onKeyDown={e=>{if(edge.formal&&(e.key==='Enter'||e.key===' ')){e.preventDefault();latest.current.onEdit(edge.formal);}}}><title id={`${uid}-edge-${id}`}>{edge.title} · {edge.state}{edge.short?` · 线上标注：${edge.short}`:''}</title><path fill="none"/><polygon className="mcs-edge-arrow" fill="currentColor" points="0,0 -7,-3 -7,3"/><g className="mcs-junction"><circle r={8}/><text x={0} y={3} textAnchor="middle">{edge.inputs.length>1?'∧':'·'}</text></g><g className="mcs-edge-label"><rect className="mcs-edge-label-bg" x={0} y={-7} width={0} height={14} rx={3}/><text className="mcs-edge-label-text" textAnchor="middle" dominantBaseline="central">{''}</text></g></g>;})}
       {props.view.added.filter(id=>visible.has(id)).map(id=>{const node=names.current.get(id);if(!node)return null;const state=props.view.relations.filter(r=>r.output===id).map(r=>relationState(r,props.content,props.reports,props.view));const lines=titleLines(node.title),height=58+(lines.length-1)*14;const status=props.learning?.missing.length&&props.learning.added.includes(id)?'当前步骤前提未确认':checkCaption(state,node.evidenceStatus);return <g key={id} ref={el=>{if(el)nodes.current.set(id,el);else nodes.current.delete(id);}} id={`${uid}-shape-${id}`} className="mcs-card" data-node-id={id} role="button" tabIndex={0} aria-labelledby={`${uid}-node-${id}`} onPointerDown={e=>pointerDown(e,id)} onPointerEnter={()=>hoverNode(id)} onPointerLeave={()=>{if(hover.current===id)hoverNode(null);}} onFocus={()=>hoverNode(id)} onBlur={()=>hoverNode(null)} onDoubleClick={()=>latest.current.onRead(id)} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();latest.current.onSelect(id);latest.current.onRead(id);}if(e.key===' '){e.preventDefault();latest.current.onSelect(id);}if(e.key==='Delete')latest.current.onRemove(id);}}><title id={`${uid}-node-${id}`}>{node.title}</title><circle className="mcs-node-circle" r={6}/>{(expanded||id===props.selected||id===focusedHover)&&<g className="mcs-node-card"><rect x={-86} y={-height/2} width={172} height={height} rx={10}/><text className="mcs-card-title">{lines.map((line,i)=><tspan key={i} x={-74} y={-height/2+21+i*14}>{line}</tspan>)}</text><text className="mcs-node-caption" x={-74} y={height/2-19}>{node.kind} · {status}</text><text className="mcs-node-caption" x={-74} y={height/2-6}>{props.known.includes(id)?'已确认掌握':props.view.locked.includes(id)?'位置固定':'双击阅读'}</text></g>}<text className="mcs-node-label">{node.title}</text></g>;})}
       <g ref={focusLayer} className="mcs-focus-layer" aria-hidden="true" pointerEvents="none"/>
     </g>

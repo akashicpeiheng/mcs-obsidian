@@ -1,4 +1,4 @@
-import {chromium} from '../../mcs-web/node_modules/playwright-core/index.mjs';
+import {chromium} from 'playwright-core';
 import {readFile,writeFile,cp} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import assert from 'node:assert/strict';
@@ -44,13 +44,39 @@ try{
   await dialog.getByLabel(/联合输入/).selectOption(['jiang:field-axioms','jiang:elementary-row-operations']);
   await dialog.locator('select').nth(2).selectOption('jiang:matrix-operations');
   await dialog.getByLabel('为什么成立，有哪些条件与边界？').fill('逻辑模式测试：P 与 P→Q 联合推出 Q。教材节点对应待审阅。');
+  await dialog.getByLabel('连线上的简短表达').fill('P ∧ P→Q ⟹ Q');
   await dialog.getByLabel('编辑形式表达',{exact:true}).check();
   await dialog.getByLabel('输入陈述，每行对应一个输入节点').fill('P\nP -> Q');
   await dialog.getByLabel('输出陈述',{exact:true}).fill('Q');
   await dialog.getByRole('button',{name:'保存关系草稿'}).click();
   await ui.getByRole('button',{name:'形式检查',exact:true}).click();
   await ui.getByText('形式检查通过 · 对应待审阅',{exact:true}).waitFor();
-  assert.equal(await ui.locator('.mcs-formal-edge text').textContent(),'∧');
+  /* 联合前提的汇合点仍只画 ∧；线上标注是另一层，单独断言。 */
+  assert.equal(await ui.locator('.mcs-formal-edge .mcs-junction text').textContent(),'∧');
+  /*
+   * 关系线上的简短表达（0.3.1）：文本出现在边标签里，并且真的摆在连线中段附近。
+   * 这里只断言可观察量——文字、可见性、位置与开关——不把内部实现写进验收。
+   */
+  const edgeLabel=ui.locator('.mcs-formal-edge .mcs-edge-label');
+  await page.waitForFunction(()=>{const label=document.querySelector('.mcs-formal-edge .mcs-edge-label');return !!label&&getComputedStyle(label).display!=='none';},{timeout:20000});
+  assert.equal(await ui.locator('.mcs-formal-edge .mcs-edge-label-text').textContent(),'P ∧ P→Q ⟹ Q');
+  /* 文字必须是真实文本节点：宽度 > 0 说明渲染出来了，而不只是挂了个属性。 */
+  assert.ok(await ui.locator('.mcs-formal-edge .mcs-edge-label-text').evaluate(node=>node.getBoundingClientRect().width>0),'关系标签文字没有真正渲染');
+  const labelNear=await page.evaluate(()=>{
+    const label=document.querySelector('.mcs-formal-edge .mcs-edge-label'),group=label.closest('.mcs-formal-edge');
+    const box=label.getBoundingClientRect(),nodes=[...group.querySelectorAll('.mcs-card,.mcs-focus-card')].map(card=>card.getBoundingClientRect());
+    const ends=nodes.length?nodes:[...document.querySelectorAll('.mcs-card')].slice(0,2).map(card=>card.getBoundingClientRect());
+    const mid={x:ends.reduce((sum,r)=>sum+r.left+r.width/2,0)/ends.length,y:ends.reduce((sum,r)=>sum+r.top+r.height/2,0)/ends.length};
+    return {text:label.textContent,width:box.width,height:box.height,distance:Math.hypot(box.left+box.width/2-mid.x,box.top+box.height/2-mid.y)};
+  });
+  assert.ok(labelNear.width>16&&labelNear.height>8,`关系标签尺寸异常：${JSON.stringify(labelNear)}`);
+  await ui.getByLabel('关系标签').uncheck();
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.mcs-formal-edge .mcs-edge-label')).display==='none');
+  await page.waitForFunction(()=>document.querySelector('.mcs-save-state')?.textContent==='已保存');
+  assert.equal((await saved()).showEdgeLabels,false,'画布开关应写进视图');
+  await ui.getByLabel('关系标签').check();
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.mcs-formal-edge .mcs-edge-label')).display!=='none');
+  await page.screenshot({path:'runtime/edge-labels.png'});
   await ui.getByRole('button',{name:'学习沙盘',exact:true}).click();
   await ui.getByRole('button',{name:'生成候选路线'}).click();
   await ui.getByLabel('沙盘：使用独立的假设背景').check();

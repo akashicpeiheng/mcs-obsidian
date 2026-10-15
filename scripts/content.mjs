@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { jiang } from '../../mcs-web/data/cases/jiang.mjs';
+import { jiang } from '../upstream/mcs-web/data/cases/jiang.mjs';
 import { pilotNodes, pilotActions, pilotTemplates } from '../data/pilot.mjs';
 import { contentHash } from '../src/core.mjs';
 import { chainNotes } from '../data/chain-notes.mjs';
@@ -26,7 +26,7 @@ export async function buildContent() {
   for (const id of external) nodes.push({id,version:'1',title:id,kind:'Concept',chapter:'背景接口',source:'网站行动契约引用的外部背景；未展开教材正文。',sourceReviewed:false,evidenceStatus:'NOT-CLAIMED',summary:'外部背景接口，须由学习者确认。',body:`# ${id}\n\nNOT-CLAIMED：此节点是行动契约引用的背景接口，未导入其他案例的正文。`});
   const sources = [];
   for (const path of ['mcs-web/data/cases/jiang.mjs','mcs-web/core/planner.mjs','mcs-web/web/src/network.ts','mcs-web/web/src/network-order.ts','mcs-web/web/src/node-placement.ts','mcs-foundations/06-硬关系.md','mcs-foundations/12-视图转换与路径规划.md']) {
-    const bytes = await readFile(new URL(`../../${path}`,import.meta.url));
+    const bytes = await readFile(new URL(`../upstream/${path}`,import.meta.url));
     sources.push({path,sha256:createHash('sha256').update(bytes).digest('hex')});
   }
   const content = { schema:'mcs-content/1',version:'pending',title:'简明高等代数 · MCS 学习地图',nodes,

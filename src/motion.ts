@@ -71,14 +71,60 @@ export class MotionEngine {
 
 export function adaptiveCards(previous:boolean,scale:number){return previous?scale>=.85:scale>=1.1;}
 
-export function labelPlacements(items:{id:string;x:number;y:number;title:string;priority:boolean}[],width:number,height:number){
-  const occupied:{x:number;y:number;w:number;h:number}[]=[],result=new Map<string,{x:number;y:number}>();
-  for(const n of [...items].sort((a,b)=>Number(b.priority)-Number(a.priority)||a.id.localeCompare(b.id))){
-    const w=Math.min(230,Math.max(40,n.title.length*11)),h=20;
+/** 屏幕上的矩形占位（节点卡片或已放好的标签）。 */
+export interface LabelObstacle {x:number;y:number;w:number;h:number}
+export interface LabelItem {id:string;x:number;y:number;title:string;priority:'high'|'normal'|'edge';/** 边标签的要求宽度（屏幕像素）。 */edgeWidth?:number;/** 边标签的可放宽度（屏幕像素，通常是连线在屏幕上的长度）。 */span?:number}
+
+/**
+ * 线上标注在当前缩放下放不放得下——按**缩放档**判定。
+ *
+ * 直觉：字贴在连线上，连线在屏幕上就得比字长。缩得越小，同一段连线在屏幕上越短，
+ * 能显示的标注自然变少——远景留下整张网络，放大后才逐条读出关系。
+ *
+ * 门槛取 0.35：这一档之下，节点已经按圆点显示且彼此很近，任何一行字都会压住邻居，
+ * 所以整层标注一起收起来，而不是靠逐条测量去猜（后者在真实界面里不够可靠）。
+ * `edgeLabelFits` 是更细的一条逐条判据，仍在使用；两者都不改变数学内容，只是显示取舍。
+ */
+export const EDGE_LABEL_MIN_SCALE=0.35;
+export function edgeLabelsVisible(scale:number,minScale=EDGE_LABEL_MIN_SCALE){
+  return Number.isFinite(scale)&&scale>=minScale;
+}
+
+/**
+ * 线上标注在当前缩放下放不放得下（逐条判据）。
+ *
+ * 这是**显示**规则，不是数学义务：放不下时如实不显示，解释仍在关系编辑器与节点正文里。
+ * 度量缺失（还没测到）时返回 true，保持既有行为。
+ */
+export function edgeLabelFits(edgeWidth:number|undefined,screenLength:number|undefined,margin=1.25){
+  if(!edgeWidth||!Number.isFinite(edgeWidth))return true;
+  if(screenLength===undefined||!Number.isFinite(screenLength))return true;
+  return edgeWidth*margin<=screenLength;
+}
+
+/**
+ * 屏幕坐标里的文字标签放置（节点标签与关系线上的简短表达共用一次占位）。
+ *
+ * `priority` 的取值与含义：
+ * - `'high'`：焦点标签（选中或悬停），先放，且允许压住别的标签；
+ * - `'normal'`：普通节点标签，按 id 稳定排序，放不下就退回节点旁的位置（不消失）；
+ * - `'edge'`：关系线上的简短表达，最后放，**放不下就不显示**。
+ *
+ * 边标签与节点标签的取舍不同：节点标签消失会让节点变成无名圆点，所以它宁可重叠；
+ * 而边标签叠在一起只会是一片糊字，所以它在「与已放标签或节点卡片相撞」或
+ * 「连线在屏幕上容不下这行字」时如实不显示，而不是把字堆上去。
+ */
+export function labelPlacements(items:LabelItem[],width:number,height:number,obstacles:LabelObstacle[]=[]){
+  const rank={high:0,normal:1,edge:2},occupied:LabelObstacle[]=[...obstacles],result=new Map<string,{x:number;y:number}>();
+  const hits=(box:LabelObstacle)=>occupied.some(b=>box.x<b.x+b.w&&box.x+box.w>b.x&&box.y<b.y+b.h&&box.y+box.h>b.y);
+  for(const n of [...items].sort((a,b)=>rank[a.priority]-rank[b.priority]||a.id.localeCompare(b.id))){
+    const w=Math.min(230,Math.max(40,n.title.length*11)),h=20,edge=n.priority==='edge',need=Math.max(w,n.edgeWidth??0);
+    if(edge&&!edgeLabelFits(need,n.span))continue;
     for(const [dx,dy]of [[12,-8],[12,20],[-w-12,-8],[-w/2,-23],[-w/2,32]]){
-      const x=Math.max(4,Math.min(width-w-4,n.x+dx)),y=Math.max(18,Math.min(height-4,n.y+dy));
-      if(!n.priority&&occupied.some(b=>x<b.x+b.w&&x+w>b.x&&y-h<b.y+b.h&&y>b.y))continue;
-      result.set(n.id,{x,y});occupied.push({x,y:y-h,w,h});break;
+      const x=Math.max(4,Math.min(width-w-4,n.x+dx)),y=Math.max(18,Math.min(height-4,n.y+dy)),box={x,y:y-h,w,h};
+      if(!edge&&n.priority==='normal'&&hits(box))continue;
+      if(edge&&hits(box))continue;
+      result.set(n.id,{x,y});occupied.push(box);break;
     }
   }return result;
 }

@@ -1,9 +1,9 @@
 // Relation-specific obligations. Parsing, substitution and finite evaluation reuse MCS core.
-import {parseFormula,parseTerm,parseType,typeEquals} from '../../mcs-web/core/formal/language.mjs';
-import {kernelTheory} from '../../mcs-web/core/formal/certificate.mjs';
-import {evaluateFormulaWithWitness,validateModel} from '../../mcs-web/core/formal/finite.mjs';
-import {fsub,formulaFv,objectFv,sameFormula,inferTerm,lift} from '../../mcs-web/core/formal/terms.mjs';
-import {digest} from '../../mcs-web/core/formal/codec.mjs';
+import {parseFormula,parseTerm,parseType,typeEquals} from '../upstream/mcs-web/core/formal/language.mjs';
+import {kernelTheory} from '../upstream/mcs-web/core/formal/certificate.mjs';
+import {evaluateFormulaWithWitness,validateModel} from '../upstream/mcs-web/core/formal/finite.mjs';
+import {fsub,formulaFv,objectFv,sameFormula,inferTerm,lift} from '../upstream/mcs-web/core/formal/terms.mjs';
+import {digest} from '../upstream/mcs-web/core/formal/codec.mjs';
 import {relationInput} from './core.mjs';
 
 const need=(ok,message)=>{if(!ok)throw new Error(message);};

@@ -1,6 +1,6 @@
 # MCS 数学认知空间 · Obsidian 插件
 
-当前版本：0.3.0，Windows 桌面试用版。独立 MCS 视图增加吸引、排斥、弹性拖动、局部聚焦、圆点／卡片切换及分阶段学习回放，继续承载可编辑的形式关系、证据检查和学习沙盘。整个任务按 P0–P6 推进，实际状态见下表。
+当前源码版本：0.3.1，Windows 桌面试用版。最近完成整套桌面验收的安装包为 0.3.0，保存在 `release/0.3.0-b6b1e2d546fa/`；0.3.1 的源码构建与核心测试另见 [GitHub 发布记录](docs/GITHUB-PUBLISH.md)。独立 MCS 视图增加吸引、排斥、弹性拖动、局部聚焦、圆点／卡片切换及分阶段学习回放，继续承载可编辑的形式关系、证据检查和学习沙盘。整个任务按 P0–P6 推进，实际状态见下表。
 
 主题在 0.2.1 跟随 Obsidian 明暗模式：浅色用站点的淡紫纸面、白色面板与深靛正文，深色用深靛背景、紫灰面板与浅紫强调色；令牌集中在 `src/theme.css`，作用域只到工作区与插件设置页。画布上的 SVG、二维 Canvas 回退与 WebGL 图层共用同一套令牌（含中性线与失败色），切换主题时整份刷新。署名与站点同源：作者 **沛恒**，联系邮箱 **peihengmath@gmail.com**（工作面板底部常驻，设置页另有完整署名）。
 
@@ -75,10 +75,11 @@ ND 检查需要 Node.js 22+ 与 Python 3，在插件设置可填完整可执行�
 
 ## 开发与复现
 
-源码构建复用相邻 `mcs-web` 的规划、形式语言、搜索、增量摆位与布局模块；构建结果已经打包这些模块，安装后不依赖相邻仓库。
+源码构建复用 `upstream/` 中的 MCS 共享模块快照，单独克隆本仓库即可构建。来源提交与逐文件 SHA-256 见 `upstream/SOURCES.json`；快照中的代码与原创理论分别沿用 MIT 与 CC BY 4.0。更新共享模块时，在主工作区重新导出。
 
 ```powershell
-cd E:\MCS\mcs-obsidian
+git clone https://github.com/akashicpeiheng/mcs-obsidian.git
+cd mcs-obsidian
 npm ci
 npm run check
 npm run build

@@ -17,6 +17,13 @@
 .mcs-junction{pointer-events:all;cursor:pointer}
 .mcs-hyperedge path,.mcs-formal-edge path{vector-effect:non-scaling-stroke}
 .mcs-formal-edge path{pointer-events:stroke}
+/*
+ * 关系线上的简短表达（relation.short）：屏幕等大、盖在连线上、跟随主题令牌。
+ * 默认隐藏——由画布每帧决定它该不该出现，所以这里只定样式，不写 display 逻辑。
+ */
+.mcs-formal-edge .mcs-edge-label{display:none;pointer-events:none}
+.mcs-formal-edge .mcs-edge-label-bg{fill:var(--mcs-bg);fill-opacity:.92;stroke:var(--mcs-line);stroke-width:1;vector-effect:non-scaling-stroke}
+.mcs-formal-edge .mcs-edge-label-text{fill:var(--mcs-ink);font-size:10px;font-weight:500}
 .mcs-selection{z-index:3}.mcs-player{z-index:3}
 .mcs-workspace{position:relative;--mcs-toolbar-space:120px;--mcs-overlay-space:64px}
 .mcs-app .mcs-sidebar-toggle{display:none}

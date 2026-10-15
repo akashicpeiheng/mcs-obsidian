@@ -1,4 +1,4 @@
-import {chromium} from '../../mcs-web/node_modules/playwright-core/index.mjs';
+import {chromium} from 'playwright-core';
 import {readFile,writeFile,cp,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import assert from 'node:assert/strict';
