@@ -1,0 +1,231 @@
+{
+  "schema": "mcs-desktop-validation/2",
+  "version": "0.2.1",
+  "recordedAt": "2026-10-14T15:27:22.123Z",
+  "evidence": "FINITE",
+  "host": {
+    "obsidian": "1.14.4",
+    "installer": "1.9.14",
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264
+  },
+  "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+  "artifacts": [
+    {
+      "file": "dist/main.js",
+      "sha256": "e480db0b23d73f5c3390d1ebccb249693e7adcfd369e559c9d0313af3de911b5"
+    },
+    {
+      "file": "dist/styles.css",
+      "sha256": "1f15e6d5683ed96fdf860deafceb722d95e1dd4c95d7689344587bb11e92a2d5"
+    },
+    {
+      "file": "dist/manifest.json",
+      "sha256": "d60b1639645a59ed973f1f342822fdcfc5c185841cb516bbc46a5401607f4623"
+    },
+    {
+      "file": "dist/worker.cjs",
+      "sha256": "637d84bdd95c7b80ae458abe05453d137f379dae1cb986257984d4a5c43ce9fa"
+    },
+    {
+      "file": "dist/kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e"
+    },
+    {
+      "file": "src/generated/content.json",
+      "sha256": "e9d8f77564a99a0d47351428ad1238e43cc65d78f79a10b704c05695ba1a56b1"
+    }
+  ],
+  "core": {
+    "status": "passed",
+    "tests": 21,
+    "passed": 21,
+    "failed": 0,
+    "checkedAt": "2026-10-14T15:27:22.121Z"
+  },
+  "desktop": {
+    "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+    "status": "passed",
+    "version": "0.2.1",
+    "host": "Obsidian desktop isolated vault",
+    "viewPath": "MCS-workspace/视图/我的数学网络-20.mcsview",
+    "recoveryPath": "MCS-workspace/视图/我的数学网络-20-恢复.mcsview",
+    "contentVersion": "85f317bf1a735e8b26cf1d041cd27203cc51c6a0a5e73d0110ff3f53b7f911b7",
+    "checkedAt": "2026-10-14T15:24:35.440Z",
+    "checks": [
+      "plugin load",
+      "idle-then-first-save",
+      "multiple saves",
+      "joint relation UI",
+      "real ND subprocess",
+      "route with simulation",
+      "missing prerequisite propagation",
+      "learner isolation",
+      "view reopen",
+      "portable import",
+      "versioned learner records",
+      "note creation",
+      "note rename while view open",
+      "existing note picker",
+      "concurrent save recovery",
+      "close and reopen recovery",
+      "Lean integration with kernel replay"
+    ],
+    "routeEvents": 8,
+    "errors": []
+  },
+  "dynamic": {
+    "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+    "status": "passed",
+    "evidence": "FINITE",
+    "version": "0.2.1",
+    "checkedAt": "2026-10-14T15:17:57.883Z",
+    "checks": [
+      "saved positions reopen idle",
+      "hover/focus highlights whole joint premise",
+      "LOD hysteresis, continuous centers and focused full name",
+      "elastic drag moves neighbors and settles without pinning",
+      "one drag produces one undo including convergence",
+      "Shift pin stays exact while neighbors move",
+      "explicit pin and unpin",
+      "motion switch persists and remains static",
+      "save during motion captures current frame",
+      "export during motion captures frame without velocities",
+      "close during motion commits and reopens stopped",
+      "add/remove with preserved space, undo restores removed node",
+      "background Obsidian tab pauses and resumes motion",
+      "reduced motion uses immediate layout",
+      "replay premises→relation→conclusion, stable coordinates, pause",
+      "jump/reduced replay, failure source and learner isolation",
+      "legacy upgrade retains positions/locks and exact original backup",
+      "version-one portable import in desktop",
+      "note command expands declared id and binds",
+      "unbound note prompts for explicit node selection",
+      "actual note file menu expands existing binding",
+      "GPU context restores joint actions without changing saved coordinates",
+      "narrow dark view and keyboard selection",
+      "theme switch refreshes the shared canvas palette (neutral + failure)"
+    ],
+    "errors": []
+  },
+  "demo": {
+    "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+    "status": "passed",
+    "version": "0.2.1",
+    "evidence": "ILLUSTRATION",
+    "source": "Actual isolated Windows Obsidian renderer; screenshots encoded as animation.",
+    "capturedFrames": 70,
+    "frames": 46,
+    "width": 936,
+    "height": 772,
+    "durationMs": 20330,
+    "captureDurationMs": 20566,
+    "file": "docs/dynamic-demo.gif",
+    "checkedAt": "2026-10-14T15:21:26.617Z"
+  },
+  "theme": {
+    "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+    "status": "passed",
+    "evidence": "FINITE",
+    "version": "0.2.1",
+    "checkedAt": "2026-10-14T15:27:16.590Z",
+    "scenarios": [
+      {
+        "label": "light wide",
+        "theme": "theme-light",
+        "width": 1440,
+        "height": 960,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      },
+      {
+        "label": "dark wide",
+        "theme": "theme-dark",
+        "width": 1440,
+        "height": 960,
+        "toolbar": true,
+        "palette": "#14102a|#a78bfa|#8f88ad|#fb7d99"
+      },
+      {
+        "label": "light medium",
+        "theme": "theme-light",
+        "width": 1000,
+        "height": 820,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      },
+      {
+        "label": "dark narrow",
+        "theme": "theme-dark",
+        "width": 860,
+        "height": 720,
+        "toolbar": true,
+        "palette": "#14102a|#a78bfa|#8f88ad|#fb7d99"
+      },
+      {
+        "label": "light narrow",
+        "theme": "theme-light",
+        "width": 700,
+        "height": 760,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      }
+    ],
+    "checks": [
+      "bundled stylesheet scoped to the plugin (252 selectors, 42 tokens)",
+      "light/dark/narrow: wordmark, emblem-free header, attribution email and wrap (5 viewports)",
+      "toolbar, attribution, reading panel and playback controls never overlap",
+      "normal text keeps WCAG AA 4.5:1 in both themes (token matrix plus rendered elements)",
+      "narrow drawer wraps the author line without clipping the email",
+      "collapsed panel: full attribution, emblem and version 0.2.1 remain in plugin settings",
+      "plugin tokens stay out of body and ordinary notes",
+      "empty network guide shows the purple emblem in both themes, original aspect ratio kept",
+      "theme switch rebuilds the shared canvas palette (webgl path)",
+      "two-dimensional fallback draws with the same token set as the WebGL layer",
+      "keyboard focus uses the accent ring; arrow keys still pan the canvas",
+      "reduced motion preference keeps the graph static"
+    ],
+    "errors": []
+  },
+  "restart": {
+    "status": "passed",
+    "checkedAt": "2026-10-14T15:24:41.125Z",
+    "scope": "Same isolated profile, actual application restart; both saved and recovered views reopen with content snapshots.",
+    "rendererChanged": true
+  },
+  "renderer": {
+    "artifactSha256": "61a7ee99f96cf3a7c24dddca367111d2c92b5d320d1e8f64f0471feb9da1f449",
+    "status": "passed",
+    "scope": "FINITE: one actual Windows Obsidian graph; sustained real pointer drag and wheel zoom after one full force convergence. p95 is the worse of host RAF and actual graph update intervals (SVG plus GPU actions). Initial cold convergence is timed separately. No general performance guarantee.",
+    "version": "0.2.1",
+    "nodes": 200,
+    "actions": 600,
+    "hyperedges": 600,
+    "distinctHyperedges": 600,
+    "viewport": {
+      "width": 1440,
+      "height": 960
+    },
+    "devicePixelRatio": 1.0000000298023224,
+    "layoutMs": 1.2071000000000254,
+    "coldConvergenceMs": 2615.0265,
+    "frames": 467,
+    "graphUpdates": 467,
+    "durationMs": 10055.999999996275,
+    "p95FrameMs": 30.300000000745058,
+    "hostP95Ms": 30.300000000745058,
+    "graphP95Ms": 29.600000001490116,
+    "targetP95Ms": 33,
+    "meanFrameMs": 21.53319057815048,
+    "maxFrameMs": 115.10000000149012,
+    "convergedWithoutContinuousPaint": true,
+    "checkedAt": "2026-10-14T15:18:37.742Z",
+    "errors": [],
+    "fitClearsControls": true,
+    "renderer": "webgl"
+  }
+}

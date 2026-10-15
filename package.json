@@ -1,0 +1,33 @@
+{
+  "name": "mcs-obsidian",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "tsc --noEmit --singleThreaded",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:theme": "node scripts/theme-check.mjs",
+    "test:lean": "node scripts/check-lean.mjs",
+    "examples": "node scripts/make-examples.mjs",
+    "package": "node scripts/package.mjs",
+    "verify:package": "python scripts/verify-package.py"
+  },
+  "dependencies": {
+    "d3-force": "3.0.0",
+    "d3-quadtree": "3.0.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/d3-force": "3.0.10",
+    "@types/d3-quadtree": "3.0.6",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "esbuild": "0.28.2",
+    "obsidian": "1.14.4",
+    "typescript": "7.0.2"
+  }
+}

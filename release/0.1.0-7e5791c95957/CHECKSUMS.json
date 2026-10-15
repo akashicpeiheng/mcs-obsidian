@@ -1,0 +1,182 @@
+{
+  "schema": "mcs-plugin-release/1",
+  "version": "0.1.0",
+  "pluginHash": "4434c9ae6f3c7228e4a567536e36b4a0576e565fe6678cd71441b647039d0b19",
+  "releaseHash": "7e5791c95957c0c54500b941811e28c70e5ce10b6364e0e2b966cdd853d4c33a",
+  "archiveSha256": "7272ac975039ecdd5324ffbd4c1325d3bd1a8e0dece3abed736a5498b42d18ca",
+  "files": [
+    {
+      "file": "kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e",
+      "size": 22265
+    },
+    {
+      "file": "LICENSE-react-dom.txt",
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "size": 1088
+    },
+    {
+      "file": "LICENSE-react.txt",
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "size": 1088
+    },
+    {
+      "file": "main.js",
+      "sha256": "f2639d062f30769e84e177933536977f75dc7f175163b3cabcd8ae116eb0e7a5",
+      "size": 2322834
+    },
+    {
+      "file": "manifest.json",
+      "sha256": "d26dd95e9f0771d37a427f59a86992257ee38e4805260d883413b32a9a12ae0a",
+      "size": 269
+    },
+    {
+      "file": "proofs/Audit.lean",
+      "sha256": "e5c27a08f6b1fd2d15a05fc5dd2faf2de706cd29c9b98e38e9c3065cd24808cd",
+      "size": 1274
+    },
+    {
+      "file": "proofs/Targets.lean",
+      "sha256": "e7661eed173b818c32141c97c0f12d2fe294f160a17cbd1e5e87949bc0c3f47c",
+      "size": 915
+    },
+    {
+      "file": "proofs/Verified.lean",
+      "sha256": "676e34e14ee75e6e6ca07bde5691c05e86be30bb1ea9b4a3056fc0a116b6cee5",
+      "size": 487
+    },
+    {
+      "file": "scripts/check-lean.mjs",
+      "sha256": "b65f47fa4cda10db73dde4c9892732a963906034d5ea21f4e1a9570eee1076cf",
+      "size": 3999
+    },
+    {
+      "file": "styles.css",
+      "sha256": "8dc240c8688a0b1fe4dd0ff316e3c30616694f18105b72beeb1bd008fcfff02e",
+      "size": 10038
+    },
+    {
+      "file": "worker.cjs",
+      "sha256": "637d84bdd95c7b80ae458abe05453d137f379dae1cb986257984d4a5c43ce9fa",
+      "size": 146746
+    }
+  ],
+  "payloadFiles": [
+    {
+      "file": "docs/INTERACTION-INVENTORY.md",
+      "sha256": "f23142c977ea8bf42970df2675af186123299f2d63ef9f50a25d0b62f4d0550e",
+      "size": 5433
+    },
+    {
+      "file": "docs/learning-view.png",
+      "sha256": "3d088f1f32c875d0f03139fb9f1ca4e8828c4c5a1a508411122f9754bd8ebdea",
+      "size": 115328
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "sha256": "9b9b60560e493f2cb31194ed303f96b27b5cdeeb607cf8dc00e75cdb872427a2",
+      "size": 3461
+    },
+    {
+      "file": "docs/SEMANTICS.md",
+      "sha256": "d67b2e5e19ce5bd3ab2f9e64814e59e9e8331bdd961ec6238e86fc307edab4e4",
+      "size": 3273
+    },
+    {
+      "file": "docs/SOURCE-AUDIT.md",
+      "sha256": "e8356d605fcb5d6800a8353b2e41f4dc5386d936d6e4c2d17ebf0935eb6941d5",
+      "size": 7370
+    },
+    {
+      "file": "docs/VALIDATION.md",
+      "sha256": "5dc7775e9009bd7926e7cc2f6a1496a9ab251b6a53e0552be47835b829201bb2",
+      "size": 4213
+    },
+    {
+      "file": "docs/validation/desktop.json",
+      "sha256": "455050eccffa2abf494700dd2a9a072e5f84abca66c5f02eb58293706afa1c87",
+      "size": 2618
+    },
+    {
+      "file": "docs/validation/lean.json",
+      "sha256": "a94be7b439899f4888d08c334dca8db2d2028b488ef1560aed53a4d4b8546269",
+      "size": 2083
+    },
+    {
+      "file": "examples/book-map.mcspack.json",
+      "sha256": "301a184e3973b5c96f6e154179c62504bc47bb86cc4c61ee0a95feb2ad8a74c4",
+      "size": 210373
+    },
+    {
+      "file": "examples/calculation.mcspack.json",
+      "sha256": "9288edf19483b06ec58739108916f2d804b5655947ae994333e8420402fdf601",
+      "size": 214518
+    },
+    {
+      "file": "examples/structure.mcspack.json",
+      "sha256": "1c34a1f7b4624430e12c19ed4fe3cea8205d32bf77bc208cd149436b44dd0197",
+      "size": 209641
+    },
+    {
+      "file": "mcs-cognitive-space/kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e",
+      "size": 22265
+    },
+    {
+      "file": "mcs-cognitive-space/LICENSE-react-dom.txt",
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "size": 1088
+    },
+    {
+      "file": "mcs-cognitive-space/LICENSE-react.txt",
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "size": 1088
+    },
+    {
+      "file": "mcs-cognitive-space/main.js",
+      "sha256": "f2639d062f30769e84e177933536977f75dc7f175163b3cabcd8ae116eb0e7a5",
+      "size": 2322834
+    },
+    {
+      "file": "mcs-cognitive-space/manifest.json",
+      "sha256": "d26dd95e9f0771d37a427f59a86992257ee38e4805260d883413b32a9a12ae0a",
+      "size": 269
+    },
+    {
+      "file": "mcs-cognitive-space/proofs/Audit.lean",
+      "sha256": "e5c27a08f6b1fd2d15a05fc5dd2faf2de706cd29c9b98e38e9c3065cd24808cd",
+      "size": 1274
+    },
+    {
+      "file": "mcs-cognitive-space/proofs/Targets.lean",
+      "sha256": "e7661eed173b818c32141c97c0f12d2fe294f160a17cbd1e5e87949bc0c3f47c",
+      "size": 915
+    },
+    {
+      "file": "mcs-cognitive-space/proofs/Verified.lean",
+      "sha256": "676e34e14ee75e6e6ca07bde5691c05e86be30bb1ea9b4a3056fc0a116b6cee5",
+      "size": 487
+    },
+    {
+      "file": "mcs-cognitive-space/scripts/check-lean.mjs",
+      "sha256": "b65f47fa4cda10db73dde4c9892732a963906034d5ea21f4e1a9570eee1076cf",
+      "size": 3999
+    },
+    {
+      "file": "mcs-cognitive-space/styles.css",
+      "sha256": "8dc240c8688a0b1fe4dd0ff316e3c30616694f18105b72beeb1bd008fcfff02e",
+      "size": 10038
+    },
+    {
+      "file": "mcs-cognitive-space/worker.cjs",
+      "sha256": "637d84bdd95c7b80ae458abe05453d137f379dae1cb986257984d4a5c43ce9fa",
+      "size": 146746
+    },
+    {
+      "file": "README.md",
+      "sha256": "c816822ca1647d2252170ec2be8b8ca03f85577d08dae5410befb8ce08f337bb",
+      "size": 8237
+    }
+  ],
+  "createdAt": "2026-10-13T14:51:54.818Z"
+}

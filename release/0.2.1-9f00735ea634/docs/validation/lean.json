@@ -1,0 +1,63 @@
+{
+  "schema": "mcs-obsidian-lean-report/1",
+  "status": "passed",
+  "message": "Lean 编译、精确目标与公理审计、独立内核重放通过；教材对应须另行审阅。",
+  "version": "Lean (version 4.34.1, x86_64-w64-windows-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "mathlibRevision": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "manifestSha256": "b9017892816d4f2ab68e8a09f1430484669f69fea504798c32af66fa5d367d93",
+  "leanSha256": "fcc4a10077d5fdd575592cea5f2981c91cbd77c490c80bc74407908e57e8b87b",
+  "leancheckerSha256": "1f18d5f13e24519bc7e21217500b45be36bc6bfde70229556c857e6ad066811f",
+  "sources": [
+    {
+      "file": "proofs/Targets.lean",
+      "sha256": "e7661eed173b818c32141c97c0f12d2fe294f160a17cbd1e5e87949bc0c3f47c"
+    },
+    {
+      "file": "proofs/Verified.lean",
+      "sha256": "676e34e14ee75e6e6ca07bde5691c05e86be30bb1ea9b4a3056fc0a116b6cee5"
+    },
+    {
+      "file": "proofs/Audit.lean",
+      "sha256": "e5c27a08f6b1fd2d15a05fc5dd2faf2de706cd29c9b98e38e9c3065cd24808cd"
+    }
+  ],
+  "targets": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "declaration": "MCSObsidian.Verified.rowEquivalence",
+      "expected": "MCSObsidian.Expected.rowEquivalence",
+      "targetMatched": true
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "declaration": "MCSObsidian.Verified.affineFibre",
+      "expected": "MCSObsidian.Expected.affineFibre",
+      "targetMatched": true
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "declaration": "MCSObsidian.Verified.rankNullity",
+      "expected": "MCSObsidian.Expected.rankNullity",
+      "targetMatched": true
+    }
+  ],
+  "kernelReplay": {
+    "status": "passed",
+    "module": "Verified",
+    "output": ""
+  },
+  "textbookAlignment": "pending",
+  "scope": "可逆线性映射的消去、特解加核、有限维秩零度。未覆盖三类具体初等矩阵的构造。",
+  "checkedAt": "2026-10-14T15:24:34.106Z"
+}

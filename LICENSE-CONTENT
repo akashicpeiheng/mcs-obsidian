@@ -1,0 +1,11 @@
+原创教学内容授权：CC BY 4.0
+================================
+
+本仓库中的**原创教学与理论内容**（包括但不限于 `docs/` 下的教学说明、
+`examples/` 中的示范内容包、教材案例正文、插件内随包分发的原创教学文本）
+采用 [知识共享署名 4.0 国际许可协议（CC BY 4.0）](https://creativecommons.org/licenses/by/4.0/deed.zh)。
+
+署名方式：作者 **沛恒（Peiheng）**，来源 [MCS 数学认知空间](https://github.com/akashicpeiheng/mcs-obsidian)。
+
+其余部分的授权划分见 `NOTICE`：源代码与脚本按 MIT（`LICENSE-MIT`），
+第三方依赖按各自许可证（见 `package.json` 与发布包内的 `LICENSE-*.txt`）。

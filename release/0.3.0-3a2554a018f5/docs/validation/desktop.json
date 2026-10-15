@@ -1,0 +1,256 @@
+{
+  "schema": "mcs-desktop-validation/2",
+  "version": "0.3.0",
+  "recordedAt": "2026-10-15T00:15:06.693Z",
+  "evidence": "FINITE",
+  "host": {
+    "obsidian": "1.14.4",
+    "installer": "1.9.14",
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264
+  },
+  "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+  "artifacts": [
+    {
+      "file": "dist/main.js",
+      "sha256": "2d1092f49dc274bf845f30ab951fe5985849b44910da1e3e637d740cd32067a1"
+    },
+    {
+      "file": "dist/styles.css",
+      "sha256": "2eae6f54f8f210936a91fc73075a4a51413d754a91e28502c12bebec2c8790db"
+    },
+    {
+      "file": "dist/manifest.json",
+      "sha256": "26c1266bd99d01ca39f0fb50394fc7a5e382b21fc69e864131b711d9306e0899"
+    },
+    {
+      "file": "dist/worker.cjs",
+      "sha256": "e25a12e26b19686940c2b58ec19c1565ce384f8dc91e2fe6419b4ce5c3efc997"
+    },
+    {
+      "file": "dist/kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e"
+    },
+    {
+      "file": "dist/witness.py",
+      "sha256": "33d95918464dbd4e51cada5e99dacf39d2cbc2be5d7b27bde3bb650fea835dfd"
+    },
+    {
+      "file": "src/generated/content.json",
+      "sha256": "e9d8f77564a99a0d47351428ad1238e43cc65d78f79a10b704c05695ba1a56b1"
+    }
+  ],
+  "core": {
+    "status": "passed",
+    "tests": 32,
+    "passed": 32,
+    "failed": 0,
+    "checkedAt": "2026-10-15T00:15:06.691Z"
+  },
+  "desktop": {
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "status": "passed",
+    "version": "0.3.0",
+    "host": "Obsidian desktop isolated vault",
+    "viewPath": "MCS-workspace/视图/我的数学网络-24.mcsview",
+    "recoveryPath": "MCS-workspace/视图/我的数学网络-24-恢复.mcsview",
+    "contentVersion": "85f317bf1a735e8b26cf1d041cd27203cc51c6a0a5e73d0110ff3f53b7f911b7",
+    "checkedAt": "2026-10-15T00:12:02.263Z",
+    "checks": [
+      "plugin load",
+      "idle-then-first-save",
+      "multiple saves",
+      "joint relation UI",
+      "real ND subprocess",
+      "route with simulation",
+      "missing prerequisite propagation",
+      "learner isolation",
+      "view reopen",
+      "portable import",
+      "versioned learner records",
+      "note creation",
+      "note rename while view open",
+      "existing note picker",
+      "concurrent save recovery",
+      "close and reopen recovery"
+    ],
+    "routeEvents": 8,
+    "errors": []
+  },
+  "dynamic": {
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "status": "passed",
+    "evidence": "FINITE",
+    "version": "0.3.0",
+    "checkedAt": "2026-10-15T00:12:41.309Z",
+    "checks": [
+      "saved positions reopen idle",
+      "hover/focus highlights whole joint premise",
+      "LOD hysteresis, continuous centers and focused full name",
+      "elastic drag moves neighbors and settles without pinning",
+      "one drag produces one undo including convergence",
+      "Shift pin stays exact while neighbors move",
+      "explicit pin and unpin",
+      "motion switch persists and remains static",
+      "save during motion captures current frame",
+      "export during motion captures frame without velocities",
+      "close during motion commits and reopens stopped",
+      "add/remove with preserved space, undo restores removed node",
+      "background Obsidian tab pauses and resumes motion",
+      "reduced motion uses immediate layout",
+      "replay premises→relation→conclusion, stable coordinates, pause",
+      "jump/reduced replay, failure source and learner isolation",
+      "legacy upgrade retains positions/locks and exact original backup",
+      "version-one portable import in desktop",
+      "note command expands declared id and binds",
+      "unbound note prompts for explicit node selection",
+      "actual note file menu expands existing binding",
+      "GPU context restores joint actions without changing saved coordinates",
+      "narrow dark view and keyboard selection",
+      "theme switch refreshes the shared canvas palette (neutral + failure)"
+    ],
+    "errors": []
+  },
+  "demo": {
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "status": "passed",
+    "version": "0.3.0",
+    "evidence": "ILLUSTRATION",
+    "source": "Actual isolated Windows Obsidian renderer; screenshots encoded as animation.",
+    "capturedFrames": 70,
+    "frames": 69,
+    "width": 1236,
+    "height": 772,
+    "durationMs": 23740,
+    "captureDurationMs": 24135,
+    "file": "docs/dynamic-demo.gif",
+    "checkedAt": "2026-10-15T00:13:43.182Z"
+  },
+  "theme": {
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "status": "passed",
+    "evidence": "FINITE",
+    "version": "0.3.0",
+    "checkedAt": "2026-10-15T00:13:09.975Z",
+    "scenarios": [
+      {
+        "label": "light wide",
+        "theme": "theme-light",
+        "width": 1440,
+        "height": 960,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      },
+      {
+        "label": "dark wide",
+        "theme": "theme-dark",
+        "width": 1440,
+        "height": 960,
+        "toolbar": true,
+        "palette": "#14102a|#a78bfa|#8f88ad|#fb7d99"
+      },
+      {
+        "label": "light medium",
+        "theme": "theme-light",
+        "width": 1000,
+        "height": 820,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      },
+      {
+        "label": "dark narrow",
+        "theme": "theme-dark",
+        "width": 860,
+        "height": 720,
+        "toolbar": true,
+        "palette": "#14102a|#a78bfa|#8f88ad|#fb7d99"
+      },
+      {
+        "label": "light narrow",
+        "theme": "theme-light",
+        "width": 700,
+        "height": 760,
+        "toolbar": true,
+        "palette": "#f5f3fb|#6d28d9|#8d85ae|#b3204a"
+      }
+    ],
+    "checks": [
+      "bundled stylesheet scoped to the plugin (259 selectors, 42 tokens)",
+      "light/dark/narrow: wordmark, emblem-free header, attribution email and wrap (5 viewports)",
+      "toolbar, attribution, reading panel and playback controls never overlap",
+      "normal text keeps WCAG AA 4.5:1 in both themes (token matrix plus rendered elements)",
+      "narrow drawer wraps the author line without clipping the email",
+      "collapsed panel: full attribution, emblem and version 0.3.0 remain in plugin settings",
+      "plugin tokens stay out of body and ordinary notes",
+      "empty network guide shows the purple emblem in both themes, original aspect ratio kept",
+      "theme switch rebuilds the shared canvas palette (webgl path)",
+      "two-dimensional fallback draws with the same token set as the WebGL layer",
+      "keyboard focus uses the accent ring; arrow keys still pan the canvas",
+      "reduced motion preference keeps the graph static"
+    ],
+    "errors": []
+  },
+  "witness": {
+    "status": "passed",
+    "version": "0.3.0",
+    "evidence": "FINITE",
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "checkedAt": "2026-10-15T00:11:32.152Z",
+    "checks": [
+      "first save of an older version-two view preserves its exact original bytes",
+      "definition editor registers typed source; independent replay distinguishes DEF from proof",
+      "exact instantiation editor produces an independent ND replay",
+      "finite instance editor verifies a closed universal statement over every element",
+      "counterexample editor requires true assumptions and a false goal",
+      "countermodel witness explains the failing values without overflowing the sidebar",
+      "save persists sources and all witness modes while keeping personal knowledge separate",
+      "editing source expires the old report and marks it historical",
+      "a false input is refused with its index rather than certified as a counterexample",
+      "reopen restores source registry and witness payloads but does not trust stored claims",
+      "portable import preserves definitions without importing verified status or learner state",
+      "narrow editor stays inside the viewport and Escape restores the workspace"
+    ],
+    "scope": "Real isolated Obsidian, relation editor to independent replay, persistence and portable import."
+  },
+  "restart": {
+    "status": "passed",
+    "checkedAt": "2026-10-15T00:12:08.894Z",
+    "scope": "Same isolated profile, actual application restart; both saved and recovered views reopen with content snapshots.",
+    "rendererChanged": true
+  },
+  "renderer": {
+    "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+    "status": "passed",
+    "scope": "FINITE: one actual Windows Obsidian graph; sustained real pointer drag and wheel zoom after one full force convergence. p95 is the worse of host RAF and actual graph update intervals (SVG plus GPU actions). Initial cold convergence is timed separately. No general performance guarantee.",
+    "version": "0.3.0",
+    "nodes": 200,
+    "actions": 600,
+    "hyperedges": 600,
+    "distinctHyperedges": 600,
+    "viewport": {
+      "width": 1440,
+      "height": 960
+    },
+    "devicePixelRatio": 1.0000000298023224,
+    "layoutMs": 1.1895999999999844,
+    "coldConvergenceMs": 2281.5326000000005,
+    "frames": 528,
+    "graphUpdates": 528,
+    "durationMs": 8873.79999999926,
+    "p95FrameMs": 24.300000000745058,
+    "hostP95Ms": 24.30000000000291,
+    "graphP95Ms": 24.300000000745058,
+    "targetP95Ms": 33,
+    "meanFrameMs": 16.806439393937993,
+    "maxFrameMs": 42.39999999999418,
+    "convergedWithoutContinuousPaint": true,
+    "checkedAt": "2026-10-15T00:14:00.257Z",
+    "errors": [],
+    "fitClearsControls": true,
+    "renderer": "webgl"
+  }
+}

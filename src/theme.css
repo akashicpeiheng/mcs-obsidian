@@ -1,0 +1,124 @@
+/* ==========================================================================
+   MCS 插件专用主题令牌
+   --------------------------------------------------------------------------
+   取值来源：站点 `mcs-web/web/src/styles.css` 的 `:root`（站点是唯一权威源，
+   本文件的浅色一栏逐字对应那批令牌）。深色一栏在站点的冷调紫罗兰体系上反相：
+   深靛纸面、紫灰面板、浅紫强调色，语义色只提亮不换色相。
+
+   作用域只到 `.mcs-app`（工作区视图）与 `.mcs-settings`（插件设置页）。
+   不写 `:root`，也不写裸元素选择器，因此普通笔记与其他插件拿不到这些变量。
+   明暗跟随 Obsidian：`body.theme-dark` 由宿主切换，这里只做覆盖。
+
+   三条纪律：
+   1. 组件里一律走令牌，不再写字面色值；SVG 的 `stroke=` / `fill=` 表现属性
+      不接受 `var()`，那部分走 `src/palette.ts` 的 JS 镜像，两处成对修改；
+   2. 画布中性线与失败色单独成套（`--mcs-neutral` / `--mcs-failure`），
+      SVG、二维 Canvas 回退与 WebGL 图层共用同一份取值；
+   3. 正文与标签的对比度按 WCAG AA 普通文字 4.5:1 校验（见 docs/VALIDATION.md）。
+   ========================================================================== */
+
+.mcs-app,
+.mcs-settings {
+  color-scheme: light;
+
+  /* 纸面与墨色：冷调紫罗兰纸面、白色面板、深靛文字 */
+  --mcs-bg: #f5f3fb;
+  --mcs-panel: #ffffff;
+  --mcs-surface-2: #f3f0fc;
+  --mcs-canvas: #fbfaff;
+  --mcs-ink: #1a1330;
+  --mcs-ink-soft: #4d4470;
+  /* 与站点 `--ink-faint` 同值（2026-10 调深以满足 AA），白底 5.57:1 */
+  --mcs-muted: #6b6389;
+  --mcs-line: #e5dff6;
+  --mcs-line-strong: #c9c0e8;
+
+  /* 品牌主色：电光紫；正文链接在白底上读得清，故主色取深一档 */
+  --mcs-accent: #6d28d9;
+  --mcs-accent-strong: #5b21b6;
+  --mcs-accent-deep: #3f1080;
+  --mcs-accent-soft: #ece4fd;
+  --mcs-accent-wash: #f6f2fe;
+  --mcs-accent-line: #cfbcf8;
+  --mcs-accent-glow: rgba(124, 58, 237, 0.32);
+  --mcs-tint: var(--mcs-accent-wash);
+  --mcs-on-accent: #ffffff;
+
+  /* 语义色：成功绿、待办琥珀、失败红；与紫色主调拉开距离 */
+  --mcs-green: #0f7a52;
+  --mcs-green-soft: #e2f5ec;
+  --mcs-green-line: #bde6d3;
+  --mcs-amber: #9a5b0b;
+  --mcs-amber-soft: #fdf0dc;
+  --mcs-amber-line: #f0d5a8;
+  --mcs-red: #b3204a;
+  --mcs-red-soft: #fde9ef;
+  --mcs-red-line: #f5c6d5;
+  --mcs-blue: #1d4ed8;
+  --mcs-blue-soft: #e7edfd;
+
+  /* 画布专用：兜底与行动契约线用中性紫灰，被拒绝的证书用失败红 */
+  --mcs-neutral: #8d85ae;
+  --mcs-failure: #b3204a;
+
+  /* 形状：圆角、细描边、克制的光晕 */
+  --mcs-radius: 12px;
+  --mcs-radius-lg: 16px;
+  --mcs-radius-sm: 9px;
+  --mcs-radius-pill: 999px;
+  --mcs-shadow: 0 1px 2px rgba(41, 20, 92, 0.05);
+  --mcs-shadow-lift: 0 2px 6px rgba(41, 20, 92, 0.08), 0 22px 48px -28px rgba(76, 29, 149, 0.45);
+  --mcs-shadow-glow: 0 6px 18px rgba(109, 40, 217, 0.3);
+  --mcs-grad-brand: linear-gradient(115deg, #4c1d95 0%, #7c3aed 48%, #c026d3 100%);
+  --mcs-grad-brand-hover: linear-gradient(115deg, #3f1080 0%, #6d28d9 48%, #a21caf 100%);
+  --mcs-scrim: rgba(26, 19, 48, 0.45);
+}
+
+/*
+ * 深色：深靛背景、紫灰面板、浅紫强调色。
+ * 语义色只提亮不换色相——状态仍靠颜色 + 文字 + 线型三重表达，
+ * 所以下面的绿 / 琥珀 / 红在深底上仍与紫色主调分得开。
+ */
+.theme-dark .mcs-app,
+.theme-dark .mcs-settings {
+  color-scheme: dark;
+
+  --mcs-bg: #14102a;
+  --mcs-panel: #1d1838;
+  --mcs-surface-2: #241d44;
+  --mcs-canvas: #171231;
+  --mcs-ink: #ece7fb;
+  --mcs-ink-soft: #c9c0e6;
+  --mcs-muted: #a99fd0;
+  --mcs-line: #332b57;
+  --mcs-line-strong: #4b3f7d;
+
+  --mcs-accent: #a78bfa;
+  --mcs-accent-strong: #c4b5fd;
+  --mcs-accent-deep: #7c3aed;
+  --mcs-accent-soft: #2b2252;
+  --mcs-accent-wash: #221b40;
+  --mcs-accent-line: #4c3d84;
+  --mcs-accent-glow: rgba(167, 139, 250, 0.38);
+  --mcs-on-accent: #ffffff;
+
+  --mcs-green: #5fd39b;
+  --mcs-green-soft: #12332a;
+  --mcs-green-line: #2c6b52;
+  --mcs-amber: #e0a94a;
+  --mcs-amber-soft: #35270f;
+  --mcs-amber-line: #77571d;
+  --mcs-red: #fb7d99;
+  --mcs-red-soft: #3a1524;
+  --mcs-red-line: #8a3450;
+  --mcs-blue: #8ab4ff;
+  --mcs-blue-soft: #16223f;
+
+  --mcs-neutral: #8f88ad;
+  --mcs-failure: #fb7d99;
+
+  --mcs-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --mcs-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.35), 0 22px 48px -28px rgba(124, 58, 237, 0.5);
+  --mcs-shadow-glow: 0 6px 18px rgba(124, 58, 237, 0.45);
+  --mcs-scrim: rgba(8, 5, 20, 0.62);
+}

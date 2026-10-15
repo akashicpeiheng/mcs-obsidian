@@ -1,0 +1,48 @@
+.mcs-graph {outline:none;background:radial-gradient(ellipse at 45% 40%,var(--mcs-tint),transparent 72%)}
+.mcs-graph .mcs-grid{opacity:.09}
+:is(.mcs-card,.mcs-focus-card) .mcs-node-circle{fill:var(--mcs-accent);stroke:var(--mcs-panel);stroke-width:1.5;vector-effect:non-scaling-stroke}
+:is(.mcs-card,.mcs-focus-card) .mcs-node-label{fill:var(--mcs-ink);font-weight:400;paint-order:stroke;stroke:var(--mcs-bg);stroke-width:3;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+:is(.mcs-card,.mcs-focus-card) .mcs-node-card rect{fill:var(--mcs-panel);stroke:var(--mcs-line-strong);stroke-width:1;vector-effect:non-scaling-stroke}
+:is(.mcs-card,.mcs-focus-card) .mcs-card-title{font-size:11px;font-weight:600}
+:is(.mcs-card,.mcs-focus-card) .mcs-node-caption{font-size:8px}
+.mcs-graph[data-motion=running] :is(.mcs-card,.mcs-focus-card) rect{filter:none}
+/* 状态仍靠颜色 + 文字 + 线型三重表达：已用紫色实线、新加入琥珀色实线、缺前提红色实线、被阻断红色虚线。 */
+:is(.mcs-card,.mcs-focus-card).used .mcs-node-circle{fill:var(--mcs-accent);stroke:var(--mcs-accent);stroke-width:3}
+:is(.mcs-card,.mcs-focus-card).new .mcs-node-circle{fill:var(--mcs-amber);stroke:var(--mcs-amber);stroke-width:3}
+:is(.mcs-card,.mcs-focus-card).missing .mcs-node-circle,:is(.mcs-card,.mcs-focus-card).missing rect{stroke:var(--mcs-failure);stroke-width:2.5}
+:is(.mcs-card,.mcs-focus-card).blocked .mcs-node-circle,:is(.mcs-card,.mcs-focus-card).blocked rect{stroke:var(--mcs-failure);stroke-width:2;stroke-dasharray:3 3}
+.mcs-hyperedge.replay-active{color:var(--mcs-accent)}
+.mcs-hyperedge.replay-active path{stroke-width:2.5;opacity:1}
+.mcs-hyperedge.replay-failed{color:var(--mcs-failure)}
+.mcs-junction{pointer-events:all;cursor:pointer}
+.mcs-hyperedge path,.mcs-formal-edge path{vector-effect:non-scaling-stroke}
+.mcs-formal-edge path{pointer-events:stroke}
+.mcs-selection{z-index:3}.mcs-player{z-index:3}
+.mcs-workspace{position:relative;--mcs-toolbar-space:120px;--mcs-overlay-space:64px}
+.mcs-app .mcs-sidebar-toggle{display:none}
+.mcs-panel-hidden .mcs-sidebar{display:none}
+.mcs-overlays{position:absolute;z-index:3;bottom:48px;left:20px;right:20px;display:flex;flex-direction:column-reverse;gap:8px;pointer-events:none;align-items:flex-start}
+.mcs-overlays .mcs-selection,.mcs-overlays .mcs-player{position:static;max-width:100%;pointer-events:auto}
+.mcs-overlays .mcs-player{width:100%}
+.mcs-panel-hidden .mcs-sidebar-toggle{display:block}
+@container(max-width:1000px){.mcs-app .mcs-sidebar-toggle{display:block}.mcs-sidebar{width:245px}}
+@container(max-width:700px){.mcs-sidebar{width:200px}.mcs-overlays{left:8px;right:8px}.mcs-canvas-toolbar{left:8px;right:8px;max-width:calc(100% - 16px);gap:4px}}
+@container(max-width:520px){.mcs-sidebar{position:absolute;inset:0 auto 0 0;width:min(280px,100%);z-index:6;box-shadow:8px 0 24px color-mix(in srgb,var(--mcs-accent-deep) 20%,transparent)}.mcs-top{padding:8px;gap:5px}.mcs-top .mcs-title{min-width:96px}.mcs-wordmark{width:104px}.mcs-title .mcs-eyebrow{display:none}.mcs-selection strong{width:100%;font-size:11px}.mcs-player{flex-wrap:wrap;gap:4px;padding:5px}.mcs-player input{flex-basis:80px}.mcs-canvas-toolbar{top:8px;padding:5px}.mcs-canvas-toolbar select{max-width:120px}.mcs-canvas-foot{left:10px;right:10px;font-size:9px}}
+.mcs-canvas-foot{white-space:normal;line-height:1.6}
+.mcs-graph:focus-visible{outline:2px solid var(--mcs-accent);outline-offset:-3px}
+:is(.mcs-card,.mcs-focus-card):focus-visible{outline:none}:is(.mcs-card,.mcs-focus-card):focus-visible rect,:is(.mcs-card,.mcs-focus-card):focus-visible circle{stroke:var(--mcs-accent);stroke-width:3}
+@media(prefers-reduced-motion:reduce){.mcs-graph *{transition:none!important;animation:none!important}}
+
+.mcs-focus-card text{fill:var(--mcs-ink)}
+.mcs-focus-card .mcs-node-caption{fill:var(--mcs-muted);font-weight:400}
+.mcs-focus-card.selected rect{stroke:var(--mcs-accent);stroke-width:2}
+.mcs-focus-card.used rect{fill:var(--mcs-accent-wash);stroke:var(--mcs-accent)}
+.mcs-focus-card.new rect{stroke:var(--mcs-amber);stroke-width:2.5}
+
+.mcs-hyperedge line{stroke:currentColor;stroke-width:1.25;vector-effect:non-scaling-stroke}
+.mcs-formal-edge line{stroke:currentColor;stroke-width:2;stroke-dasharray:5 4;vector-effect:non-scaling-stroke;pointer-events:stroke}
+.mcs-formal-edge.verified line{stroke-dasharray:none}
+.mcs-hyperedge.replay-active line{stroke-width:2.5}
+.mcs-actions-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
+.mcs-canvas-area{background:radial-gradient(ellipse at 45% 40%,var(--mcs-tint),transparent 72%),var(--mcs-bg)}
+.mcs-graph{position:relative;background:none}

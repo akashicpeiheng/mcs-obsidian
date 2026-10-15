@@ -1,0 +1,165 @@
+{
+  "schema": "mcs-desktop-validation/2",
+  "version": "0.2.0",
+  "recordedAt": "2026-10-14T06:04:40.578Z",
+  "evidence": "FINITE",
+  "host": {
+    "obsidian": "1.14.4",
+    "installer": "1.9.14",
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264
+  },
+  "artifactSha256": "da298ddfee7fcbc0dcdad04863153c7d0e325286991d80817e44b96d1462d81c",
+  "artifacts": [
+    {
+      "file": "dist/main.js",
+      "sha256": "a89541a963b7367dd9bde3e5922e430a7a6695dea098c624276fb9c8bbc3d581"
+    },
+    {
+      "file": "dist/styles.css",
+      "sha256": "5a440c9057c8803280b598932ea6796589841e7fb3833fd7962fe01dec8f981d"
+    },
+    {
+      "file": "dist/manifest.json",
+      "sha256": "0f001edac98a83430e72c70504944bd78587cf0b025b63480c8db463bc5edf56"
+    },
+    {
+      "file": "dist/worker.cjs",
+      "sha256": "637d84bdd95c7b80ae458abe05453d137f379dae1cb986257984d4a5c43ce9fa"
+    },
+    {
+      "file": "dist/kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e"
+    },
+    {
+      "file": "src/generated/content.json",
+      "sha256": "0c0d41db7c1bdd0cc9e7195f84181c7e7c7830a4399098f61ec225f5b64fe671"
+    }
+  ],
+  "core": {
+    "status": "passed",
+    "tests": 21,
+    "passed": 21,
+    "failed": 0,
+    "checkedAt": "2026-10-14T06:04:40.575Z"
+  },
+  "desktop": {
+    "artifactSha256": "da298ddfee7fcbc0dcdad04863153c7d0e325286991d80817e44b96d1462d81c",
+    "status": "passed",
+    "host": "Obsidian desktop isolated vault",
+    "viewPath": "MCS-workspace/视图/我的数学网络-18.mcsview",
+    "recoveryPath": "MCS-workspace/视图/我的数学网络-18-恢复.mcsview",
+    "contentVersion": "02ac2ce63772188539c8e5548fb64b8623b400479d3e8143f6f1f29af8ccf1d0",
+    "checkedAt": "2026-10-14T06:00:37.282Z",
+    "checks": [
+      "plugin load",
+      "idle-then-first-save",
+      "multiple saves",
+      "joint relation UI",
+      "real ND subprocess",
+      "route with simulation",
+      "missing prerequisite propagation",
+      "learner isolation",
+      "view reopen",
+      "portable import",
+      "versioned learner records",
+      "note creation",
+      "note rename while view open",
+      "existing note picker",
+      "concurrent save recovery",
+      "close and reopen recovery",
+      "Lean integration with kernel replay"
+    ],
+    "routeEvents": 8,
+    "errors": []
+  },
+  "dynamic": {
+    "artifactSha256": "da298ddfee7fcbc0dcdad04863153c7d0e325286991d80817e44b96d1462d81c",
+    "status": "passed",
+    "evidence": "FINITE",
+    "version": "0.2.0",
+    "checkedAt": "2026-10-14T06:01:16.635Z",
+    "checks": [
+      "saved positions reopen idle",
+      "hover/focus highlights whole joint premise",
+      "LOD hysteresis, continuous centers and focused full name",
+      "elastic drag moves neighbors and settles without pinning",
+      "one drag produces one undo including convergence",
+      "Shift pin stays exact while neighbors move",
+      "explicit pin and unpin",
+      "motion switch persists and remains static",
+      "save during motion captures current frame",
+      "export during motion captures frame without velocities",
+      "close during motion commits and reopens stopped",
+      "add/remove with preserved space, undo restores removed node",
+      "background Obsidian tab pauses and resumes motion",
+      "reduced motion uses immediate layout",
+      "replay premises→relation→conclusion, stable coordinates, pause",
+      "jump/reduced replay, failure source and learner isolation",
+      "legacy upgrade retains positions/locks and exact original backup",
+      "version-one portable import in desktop",
+      "note command expands declared id and binds",
+      "unbound note prompts for explicit node selection",
+      "actual note file menu expands existing binding",
+      "GPU context restores joint actions without changing saved coordinates",
+      "narrow dark view and keyboard selection"
+    ],
+    "errors": []
+  },
+  "demo": {
+    "artifactSha256": "da298ddfee7fcbc0dcdad04863153c7d0e325286991d80817e44b96d1462d81c",
+    "status": "passed",
+    "version": "0.2.0",
+    "evidence": "ILLUSTRATION",
+    "source": "Actual isolated Windows Obsidian renderer; screenshots encoded as animation.",
+    "capturedFrames": 70,
+    "frames": 47,
+    "width": 936,
+    "height": 772,
+    "durationMs": 22330,
+    "captureDurationMs": 22481,
+    "file": "docs/dynamic-demo.gif",
+    "checkedAt": "2026-10-14T06:02:57.512Z"
+  },
+  "restart": {
+    "status": "passed",
+    "checkedAt": "2026-10-14T06:00:42.606Z",
+    "scope": "Same isolated profile, actual application restart; both saved and recovered views reopen with content snapshots.",
+    "rendererChanged": true
+  },
+  "renderer": {
+    "artifactSha256": "da298ddfee7fcbc0dcdad04863153c7d0e325286991d80817e44b96d1462d81c",
+    "status": "passed",
+    "scope": "FINITE: one actual Windows Obsidian graph; sustained real pointer drag and wheel zoom after one full force convergence. p95 is the worse of host RAF and actual graph update intervals (SVG plus GPU actions). Initial cold convergence is timed separately. No general performance guarantee.",
+    "version": "0.2.0",
+    "nodes": 200,
+    "actions": 600,
+    "hyperedges": 600,
+    "distinctHyperedges": 600,
+    "viewport": {
+      "width": 1440,
+      "height": 960
+    },
+    "devicePixelRatio": 1.0000000298023224,
+    "layoutMs": 1.183400000000006,
+    "coldConvergenceMs": 2995.2919,
+    "frames": 510,
+    "graphUpdates": 510,
+    "durationMs": 10398,
+    "p95FrameMs": 30.30000000000291,
+    "hostP95Ms": 30.30000000000291,
+    "graphP95Ms": 29.5,
+    "targetP95Ms": 33,
+    "meanFrameMs": 20.388235294117646,
+    "maxFrameMs": 42.400000000001455,
+    "convergedWithoutContinuousPaint": true,
+    "checkedAt": "2026-10-14T06:01:36.619Z",
+    "errors": [],
+    "fitClearsControls": true,
+    "renderer": "webgl"
+  }
+}

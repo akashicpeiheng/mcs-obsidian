@@ -1,0 +1,364 @@
+{
+  "schema": "mcs-host-compat/1",
+  "version": "0.3.0",
+  "minAppVersion": "1.7.2",
+  "checkedAgainst": "node_modules/obsidian/obsidian.d.ts（obsidian@1.14.4）",
+  "evidence": "STATIC",
+  "claim": "打包产物与源码没有使用任何 @since 晚于 1.7.2 的 Obsidian 公开成员。",
+  "notClaimed": "没有在 1.7.2 宿主上实机运行过。类型定义只记录引入版本，不覆盖行为差异与未标注的改动。",
+  "isDesktopOnly": true,
+  "importedSurface": [
+    {
+      "name": "Component",
+      "since": "0.9.7",
+      "declaration": "export class Component {",
+      "tooNew": false
+    },
+    {
+      "name": "FileSystemAdapter",
+      "since": null,
+      "declaration": null,
+      "tooNew": false
+    },
+    {
+      "name": "FileView",
+      "since": null,
+      "declaration": null,
+      "tooNew": false
+    },
+    {
+      "name": "FuzzySuggestModal",
+      "since": "0.9.20",
+      "declaration": "export abstract class FuzzySuggestModal<T> extends SuggestModal<FuzzyMatch<T>> {",
+      "tooNew": false
+    },
+    {
+      "name": "MarkdownRenderer",
+      "since": "0.9.7",
+      "declaration": "export abstract class MarkdownRenderer extends MarkdownRenderChild implements MarkdownPreviewEvents, HoverParent {",
+      "tooNew": false
+    },
+    {
+      "name": "Notice",
+      "since": "0.9.7",
+      "declaration": "export class Notice {",
+      "tooNew": false
+    },
+    {
+      "name": "Plugin",
+      "since": "0.9.7",
+      "declaration": "export abstract class Plugin extends Component {",
+      "tooNew": false
+    },
+    {
+      "name": "PluginSettingTab",
+      "since": "0.9.7",
+      "declaration": "export abstract class PluginSettingTab extends SettingTab {",
+      "tooNew": false
+    },
+    {
+      "name": "Setting",
+      "since": "0.9.7",
+      "declaration": "export class Setting {",
+      "tooNew": false
+    },
+    {
+      "name": "TFile",
+      "since": "0.9.7",
+      "declaration": "export class TFile extends TAbstractFile {",
+      "tooNew": false
+    },
+    {
+      "name": "normalizePath",
+      "since": null,
+      "declaration": null,
+      "tooNew": false
+    }
+  ],
+  "importedTooNew": [],
+  "memberCandidatesNewerThanMin": 21,
+  "memberHits": [
+    {
+      "name": "entries",
+      "since": "1.10.0",
+      "declaredOn": "BasesEntryGroup",
+      "declaration": "entries: BasesEntry[];",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "formal.mjs",
+        "main.tsx",
+        "witness.mjs",
+        "WitnessEditor.tsx"
+      ],
+      "review": "同名不同物：命中的是 BasesEntryGroup 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "file",
+      "since": "1.10.0",
+      "declaredOn": "BasesEntry",
+      "declaration": "file: TFile;",
+      "files": [
+        "main.tsx"
+      ],
+      "review": "同名不同物：命中的是 BasesEntry 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "filter",
+      "since": "1.10.0",
+      "declaredOn": "BasesPropertyOption",
+      "declaration": "filter?: (prop: BasesPropertyId) => boolean;",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "migration.mjs",
+        "motion.ts",
+        "witness.mjs",
+        "WitnessEditor.tsx"
+      ],
+      "review": "同名不同物：命中的是 BasesPropertyOption 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "get",
+      "since": "1.10.0",
+      "declaredOn": "BasesViewConfig",
+      "declaration": "get(key: string): unknown;",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "motion.ts",
+        "witness.mjs"
+      ],
+      "review": "同名不同物：命中的是 BasesViewConfig 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "includes",
+      "since": "1.10.0",
+      "declaredOn": "ListValue",
+      "declaration": "includes(value: Value): boolean;",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "formal.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "migration.mjs",
+        "witness.mjs",
+        "WitnessEditor.tsx",
+        "worker.mjs"
+      ],
+      "review": "同名不同物：命中的是 ListValue 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "items",
+      "since": "1.10.0",
+      "declaredOn": "BasesOptionGroup",
+      "declaration": "items: T[];",
+      "files": [
+        "motion.ts"
+      ],
+      "review": "同名不同物：命中的是 BasesOptionGroup 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "length",
+      "since": "1.10.0",
+      "declaredOn": "ListValue",
+      "declaration": "length(): number;",
+      "files": [
+        "ActionRenderer.ts",
+        "App.tsx",
+        "core.mjs",
+        "formal.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "migration.mjs",
+        "motion.ts",
+        "witness.mjs",
+        "WitnessEditor.tsx"
+      ],
+      "review": "同名不同物：命中的是 ListValue 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "max",
+      "since": "1.10.0",
+      "declaredOn": "BasesSliderOption",
+      "declaration": "max?: number;",
+      "files": [
+        "ActionRenderer.ts",
+        "App.tsx",
+        "core.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "motion.ts",
+        "witness.mjs"
+      ],
+      "review": "同名不同物：命中的是 BasesSliderOption 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "min",
+      "since": "1.10.0",
+      "declaredOn": "BasesSliderOption",
+      "declaration": "min?: number;",
+      "files": [
+        "ActionRenderer.ts",
+        "App.tsx",
+        "core.mjs",
+        "GraphCanvas.tsx",
+        "motion.ts"
+      ],
+      "review": "同名不同物：命中的是 BasesSliderOption 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "set",
+      "since": "1.10.0",
+      "declaredOn": "BasesViewConfig",
+      "declaration": "set(key: string, value: any | null): void;",
+      "files": [
+        "ActionRenderer.ts",
+        "App.tsx",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "motion.ts",
+        "witness.mjs"
+      ],
+      "review": "同名不同物：命中的是 BasesViewConfig 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "step",
+      "since": "1.10.0",
+      "declaredOn": "BasesSliderOption",
+      "declaration": "step?: number;",
+      "files": [
+        "App.tsx",
+        "GraphCanvas.tsx"
+      ],
+      "review": "同名不同物：命中的是 BasesSliderOption 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "value",
+      "since": "1.10.0",
+      "declaredOn": "NullValue",
+      "declaration": "static value: NullValue;",
+      "files": [
+        "App.tsx",
+        "witness.mjs",
+        "WitnessEditor.tsx"
+      ],
+      "review": "同名不同物：命中的是 NullValue 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "views",
+      "since": "1.10.0",
+      "declaredOn": "BasesConfigFile",
+      "declaration": "views?: BasesConfigFileView[];",
+      "files": [
+        "migration.mjs"
+      ],
+      "review": "同名不同物：命中的是 BasesConfigFile 的成员（1.10.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "addClass",
+      "since": "1.11.0",
+      "declaredOn": "SettingGroup",
+      "declaration": "addClass(...classes: string[]): this;",
+      "files": [
+        "main.tsx"
+      ],
+      "review": "调用的是 HTMLElement 增强成员（obsidian.d.ts 中该处无 @since），不是 SettingGroup.addClass"
+    },
+    {
+      "name": "action",
+      "since": "1.13.0",
+      "declaredOn": "SettingDefinitionAction",
+      "declaration": "action: (el: HTMLElement, index: number) => void;",
+      "files": [
+        "App.tsx",
+        "core.mjs"
+      ],
+      "review": "同名不同物：命中的是 SettingDefinitionAction 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "render",
+      "since": "1.13.0",
+      "declaredOn": "SettingDefinitionAction",
+      "declaration": "render?: never;",
+      "files": [
+        "main.tsx"
+      ],
+      "review": "同名不同物：命中的是 SettingDefinitionAction 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "settings",
+      "since": "1.13.0",
+      "declaredOn": "Plugin",
+      "declaration": "settings?: unknown;",
+      "files": [
+        "main.tsx"
+      ],
+      "review": "同名不同物：命中的是 Plugin 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "title",
+      "since": "1.13.0",
+      "declaredOn": "SettingPage",
+      "declaration": "title: string;",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "graph.ts",
+        "GraphCanvas.tsx",
+        "main.tsx",
+        "motion.ts"
+      ],
+      "review": "同名不同物：命中的是 SettingPage 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "update",
+      "since": "1.13.0",
+      "declaredOn": "SettingTab",
+      "declaration": "update(): void;",
+      "files": [
+        "core.mjs",
+        "main.tsx"
+      ],
+      "review": "同名不同物：命中的是 SettingTab 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "visible",
+      "since": "1.13.0",
+      "declaredOn": "SettingDefinitionBase",
+      "declaration": "visible?: boolean | (() => boolean);",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "GraphCanvas.tsx"
+      ],
+      "review": "同名不同物：命中的是 SettingDefinitionBase 的成员（1.13.0 起），插件用的是自家字段"
+    },
+    {
+      "name": "status",
+      "since": "1.13.1",
+      "declaredOn": "SettingDefinitionPage",
+      "declaration": "status?: 'warning' | null | (() => 'warning' | null);",
+      "files": [
+        "App.tsx",
+        "core.mjs",
+        "formal.mjs",
+        "GraphCanvas.tsx",
+        "witness.mjs",
+        "worker.mjs"
+      ],
+      "review": "同名不同物：命中的是 SettingDefinitionPage 的成员（1.13.1 起），插件用的是自家字段"
+    }
+  ],
+  "checkedAt": "2026-10-15T01:15:05.250Z"
+}

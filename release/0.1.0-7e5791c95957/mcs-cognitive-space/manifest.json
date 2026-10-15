@@ -1,0 +1,9 @@
+{
+  "id": "mcs-cognitive-space",
+  "name": "MCS 数学认知空间",
+  "version": "0.1.0",
+  "minAppVersion": "1.7.2",
+  "description": "以可编辑的形式关系组建数学网络，保存视图并演绎学习路径。",
+  "author": "MCS",
+  "isDesktopOnly": true
+}

@@ -1,0 +1,216 @@
+{
+  "schema": "mcs-plugin-soak/1",
+  "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+  "version": "0.3.0",
+  "status": "passed",
+  "evidence": "FINITE",
+  "scope": "FINITE：一台 Windows 机器、专用隔离实例、200 节点 / 600 联合行动的同一张图；反复开关视图并持续真实拖动。不构成其他机器、更长时段或更大图的保证。",
+  "method": {
+    "cycles": 8,
+    "soakSeconds": 120,
+    "bucketSeconds": 30,
+    "maxGrowthMb": 80,
+    "degradationLimit": 1.5,
+    "memory": "Electron process.getProcessMemoryInfo() 的工作集与私有字节，外加 renderer 的 performance.memory JS 堆；每次都在视图关闭并等待 500ms 之后取样。",
+    "foreign": "每次取样前后各量一次外部进程（排除本实例进程树与 node）的 CPU 累计时间，换算出这段窗口里别人占了几核，用来判断当次数字是否被别人的负载干扰。"
+  },
+  "session": {
+    "path": "runtime/perf-session.json",
+    "vault": "E:\\MCS\\mcs-obsidian\\runtime\\perf-vault\\vault",
+    "port": 9251
+  },
+  "host": {
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264,
+    "devicePixelRatio": 1.0000000298023224,
+    "baselineMemory": {
+      "residentMb": 651.2,
+      "privateMb": 599.2,
+      "sharedMb": 8.5,
+      "rssMb": 651.5,
+      "heapUsedMb": 78,
+      "jsHeapMb": 92.6
+    }
+  },
+  "cycles": [
+    {
+      "cycle": 1,
+      "residentMb": 704.3,
+      "privateMb": 647,
+      "sharedMb": 8.9,
+      "rssMb": 704.5,
+      "heapUsedMb": 87.6,
+      "jsHeapMb": 102.3,
+      "seconds": 9,
+      "foreignCores": 0.16,
+      "foreignBusyPercent": 1.9
+    },
+    {
+      "cycle": 2,
+      "residentMb": 708.7,
+      "privateMb": 651.9,
+      "sharedMb": 8.6,
+      "rssMb": 708.9,
+      "heapUsedMb": 90.4,
+      "jsHeapMb": 105.1,
+      "seconds": 9,
+      "foreignCores": 0.22,
+      "foreignBusyPercent": 2.7
+    },
+    {
+      "cycle": 3,
+      "residentMb": 708.3,
+      "privateMb": 649.1,
+      "sharedMb": 9,
+      "rssMb": 708.4,
+      "heapUsedMb": 69.2,
+      "jsHeapMb": 79.8,
+      "seconds": 9,
+      "foreignCores": 0.3,
+      "foreignBusyPercent": 3.8
+    },
+    {
+      "cycle": 4,
+      "residentMb": 710.7,
+      "privateMb": 653.3,
+      "sharedMb": 8.6,
+      "rssMb": 710.8,
+      "heapUsedMb": 73.9,
+      "jsHeapMb": 88.6,
+      "seconds": 9,
+      "foreignCores": 0.1,
+      "foreignBusyPercent": 1.2
+    },
+    {
+      "cycle": 5,
+      "residentMb": 710.6,
+      "privateMb": 653.2,
+      "sharedMb": 8.6,
+      "rssMb": 710.8,
+      "heapUsedMb": 94.3,
+      "jsHeapMb": 109,
+      "seconds": 9,
+      "foreignCores": 0.21,
+      "foreignBusyPercent": 2.6
+    },
+    {
+      "cycle": 6,
+      "residentMb": 711.4,
+      "privateMb": 654.3,
+      "sharedMb": 8.5,
+      "rssMb": 711.6,
+      "heapUsedMb": 93.5,
+      "jsHeapMb": 108.2,
+      "seconds": 9,
+      "foreignCores": 0.18,
+      "foreignBusyPercent": 2.2
+    },
+    {
+      "cycle": 7,
+      "residentMb": 712.1,
+      "privateMb": 654.5,
+      "sharedMb": 8.8,
+      "rssMb": 712.2,
+      "heapUsedMb": 98.5,
+      "jsHeapMb": 113.2,
+      "seconds": 9,
+      "foreignCores": 0.11,
+      "foreignBusyPercent": 1.4
+    },
+    {
+      "cycle": 8,
+      "residentMb": 712.9,
+      "privateMb": 655.9,
+      "sharedMb": 8.8,
+      "rssMb": 713.1,
+      "heapUsedMb": 77.6,
+      "jsHeapMb": 92.3,
+      "seconds": 9,
+      "foreignCores": 0.33,
+      "foreignBusyPercent": 4.1
+    }
+  ],
+  "buckets": [
+    {
+      "bucket": 1,
+      "seconds": 31,
+      "frames": 3040,
+      "p95FrameMs": 16.2,
+      "meanFrameMs": 10.59,
+      "foreignBusyPercent": 2.7,
+      "memory": {
+        "residentMb": 725.2,
+        "privateMb": 661.9,
+        "sharedMb": 14.7,
+        "rssMb": 725.4,
+        "heapUsedMb": 88.7,
+        "jsHeapMb": 103.4
+      }
+    },
+    {
+      "bucket": 2,
+      "seconds": 31,
+      "frames": 3168,
+      "p95FrameMs": 16.1,
+      "meanFrameMs": 10.54,
+      "foreignBusyPercent": 2.3,
+      "memory": {
+        "residentMb": 725.3,
+        "privateMb": 662.2,
+        "sharedMb": 14.7,
+        "rssMb": 725.5,
+        "heapUsedMb": 80.4,
+        "jsHeapMb": 95.1
+      }
+    },
+    {
+      "bucket": 3,
+      "seconds": 32,
+      "frames": 3082,
+      "p95FrameMs": 16.2,
+      "meanFrameMs": 10.91,
+      "foreignBusyPercent": 1.8,
+      "memory": {
+        "residentMb": 726.5,
+        "privateMb": 663.3,
+        "sharedMb": 14.8,
+        "rssMb": 726.7,
+        "heapUsedMb": 93,
+        "jsHeapMb": 107.7
+      }
+    },
+    {
+      "bucket": 4,
+      "seconds": 31,
+      "frames": 3006,
+      "p95FrameMs": 16.3,
+      "meanFrameMs": 11.05,
+      "foreignBusyPercent": 2.5,
+      "memory": {
+        "residentMb": 730.1,
+        "privateMb": 666.9,
+        "sharedMb": 14.8,
+        "rssMb": 730.2,
+        "heapUsedMb": 101.1,
+        "jsHeapMb": 115.8
+      }
+    }
+  ],
+  "checks": {
+    "cycles": 8,
+    "growthMb": 8.6,
+    "heapGrowthMb": -10,
+    "baselineDeltaMb": 61.7,
+    "degradation": 1.01,
+    "buckets": 4,
+    "firstBucketP95Ms": 16.2,
+    "lastBucketP95Ms": 16.3,
+    "worstForeignBusyPercent": 4.1
+  },
+  "errors": [],
+  "checkedAt": "2026-10-15T01:18:20.916Z"
+}

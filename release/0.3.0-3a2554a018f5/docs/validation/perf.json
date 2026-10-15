@@ -1,0 +1,116 @@
+{
+  "schema": "mcs-plugin-perf/1",
+  "artifactSha256": "496c70ad7f2bc420c7a10a3b951a854895991bf8994e5b4d713706e432b10644",
+  "version": "0.3.0",
+  "status": "running",
+  "evidence": "FINITE",
+  "scope": "FINITE：一台 Windows 机器、实际 Obsidian 渲染进程、给定输入与视窗 1440×960；动作是受控的真实指针拖动与滚轮缩放，不是合成基准。不构成其他机器、显卡或平台的性能保证。",
+  "method": {
+    "samples": 120,
+    "idleCpuMs": 3000,
+    "frameTargetMs": 33,
+    "pointer": "真实鼠标按下→移动→抬起，采样宿主 requestAnimationFrame 间隔与 SVG 实际重绘间隔，取较差者的第 95 百分位"
+  },
+  "host": {
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264,
+    "devicePixelRatio": 1.0000000298023224,
+    "baselineIdleCpuPercent": 0.04,
+    "baselineIdleWakeupsPerSecond": 0,
+    "pluginReloadMs": 19
+  },
+  "scales": [
+    {
+      "id": "real-9",
+      "label": "真实内容 · 计算示范路线",
+      "kind": "example",
+      "nodes": 9,
+      "actions": 60
+    },
+    {
+      "id": "real-59",
+      "label": "真实内容 · 全书地图（上限）",
+      "kind": "example",
+      "nodes": 59,
+      "actions": 60
+    },
+    {
+      "id": "stress-50",
+      "label": "合成压力 · 小",
+      "kind": "synthetic",
+      "nodes": 50,
+      "actions": 100
+    },
+    {
+      "id": "stress-200",
+      "label": "合成压力 · 既有基线",
+      "kind": "synthetic",
+      "nodes": 200,
+      "actions": 600
+    },
+    {
+      "id": "stress-400",
+      "label": "合成压力 · 大",
+      "kind": "synthetic",
+      "nodes": 400,
+      "actions": 900
+    }
+  ],
+  "bars": {
+    "webglStress200P95Ms": 33,
+    "realCeilingP95Ms": 33
+  },
+  "runs": [
+    {
+      "scale": "real-9",
+      "label": "真实内容 · 计算示范路线",
+      "renderer": "webgl",
+      "nodes": 9,
+      "actions": 60,
+      "firstPaintMs": 160,
+      "renderedEdges": 11,
+      "drawnNodes": 9,
+      "paletteMatchesTokens": true,
+      "coldConvergenceMs": 159,
+      "samplingMs": 3953,
+      "frames": 651,
+      "graphUpdates": 137,
+      "hostP95Ms": 6.2,
+      "graphP95Ms": 36.7,
+      "p95FrameMs": 36.7,
+      "meanFrameMs": 6.07,
+      "maxFrameMs": 18.2,
+      "meanFps": 164.7,
+      "paintsAfterConvergence": 0,
+      "idleCpuPercent": 0.02,
+      "idleWakeupsPerSecond": 0,
+      "afterOpen": {
+        "jsHeapBytes": 60017311
+      },
+      "memoryDeltaKb": null,
+      "afterClose": {
+        "jsHeapBytes": 60324034
+      },
+      "memoryAfterCloseDeltaKb": null
+    },
+    {
+      "scale": "real-59",
+      "label": "真实内容 · 全书地图（上限）",
+      "renderer": "webgl",
+      "nodes": 59,
+      "actions": 60,
+      "firstPaintMs": 65714,
+      "renderedEdges": 1,
+      "drawnNodes": 2,
+      "paletteMatchesTokens": true,
+      "failed": "locator.focus: Timeout 90000ms exceeded."
+    }
+  ],
+  "notes": [],
+  "errors": [],
+  "checkedAt": "2026-10-14T23:59:48.278Z"
+}

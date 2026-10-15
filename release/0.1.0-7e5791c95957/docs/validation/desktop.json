@@ -1,0 +1,85 @@
+{
+  "schema": "mcs-desktop-validation/1",
+  "recordedAt": "2026-10-13T14:50:18.959Z",
+  "evidence": "FINITE",
+  "host": {
+    "obsidian": "1.14.4",
+    "installer": "1.9.14",
+    "electron": "37.6.0",
+    "node": "22.19.0",
+    "platform": "win32"
+  },
+  "artifacts": [
+    {
+      "file": "dist/main.js",
+      "sha256": "f2639d062f30769e84e177933536977f75dc7f175163b3cabcd8ae116eb0e7a5"
+    },
+    {
+      "file": "dist/styles.css",
+      "sha256": "8dc240c8688a0b1fe4dd0ff316e3c30616694f18105b72beeb1bd008fcfff02e"
+    },
+    {
+      "file": "dist/manifest.json",
+      "sha256": "d26dd95e9f0771d37a427f59a86992257ee38e4805260d883413b32a9a12ae0a"
+    },
+    {
+      "file": "dist/worker.cjs",
+      "sha256": "637d84bdd95c7b80ae458abe05453d137f379dae1cb986257984d4a5c43ce9fa"
+    },
+    {
+      "file": "dist/kernel.py",
+      "sha256": "25130be0e90d0336af0d4505bf664ccbc0d2ca69beda02dd6c501e124a4a4e5e"
+    },
+    {
+      "file": "src/generated/content.json",
+      "sha256": "0c0d41db7c1bdd0cc9e7195f84181c7e7c7830a4399098f61ec225f5b64fe671"
+    }
+  ],
+  "desktop": {
+    "status": "passed",
+    "host": "Obsidian desktop isolated vault",
+    "viewPath": "MCS-workspace/视图/我的数学网络-11.mcsview",
+    "recoveryPath": "MCS-workspace/视图/我的数学网络-11-恢复.mcsview",
+    "contentVersion": "02ac2ce63772188539c8e5548fb64b8623b400479d3e8143f6f1f29af8ccf1d0",
+    "checkedAt": "2026-10-13T14:47:39.550Z",
+    "checks": [
+      "plugin load",
+      "idle-then-first-save",
+      "multiple saves",
+      "joint relation UI",
+      "real ND subprocess",
+      "route with simulation",
+      "missing prerequisite propagation",
+      "learner isolation",
+      "view reopen",
+      "portable import",
+      "versioned learner records",
+      "note creation",
+      "note rename while view open",
+      "existing note picker",
+      "concurrent save recovery",
+      "close and reopen recovery",
+      "Lean integration with kernel replay"
+    ],
+    "routeEvents": 8,
+    "errors": []
+  },
+  "restart": {
+    "status": "passed",
+    "checkedAt": "2026-10-13T14:48:55.320Z",
+    "scope": "Same isolated profile, actual application restart; both saved and recovered views reopen with content snapshots.",
+    "rendererChanged": true
+  },
+  "renderer": {
+    "status": "passed",
+    "scope": "FINITE: one synthetic desktop graph, not a general performance guarantee.",
+    "nodes": 200,
+    "actions": 600,
+    "hyperedges": 600,
+    "layoutMs": 306.4053,
+    "meanFrameMs": 10.34000000009934,
+    "maxFrameMs": 145.39999999999964,
+    "checkedAt": "2026-10-13T14:49:08.393Z",
+    "errors": []
+  }
+}

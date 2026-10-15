@@ -1,0 +1,93 @@
+{
+  "schema": "mcs-host-baseline/1",
+  "artifactSha256": "58216f50d4060615452cda24e6b673395937d2ee6b0579ed9d7af9ae09607e26",
+  "version": "0.3.0",
+  "status": "passed",
+  "evidence": "FINITE",
+  "scope": "FINITE：这台机器、此刻的电源/显示状态与外部负载下，Obsidian 空转与 MCS 视图静止时的帧间隔地板。它不是插件性能，只是解释插件数字时所需的参照。",
+  "method": {
+    "seconds": 8,
+    "sampling": "在渲染进程里连续采样 requestAnimationFrame 间隔，取分位数",
+    "foreign": "取样前后各量一次外部进程（排除本实例进程树与 node）的 CPU 累计时间"
+  },
+  "session": {
+    "path": "runtime/perf-session.json",
+    "vault": "E:\\MCS\\mcs-obsidian\\runtime\\perf-vault\\vault",
+    "port": 9251
+  },
+  "host": {
+    "cpu": "11th Gen Intel(R) Core(TM) i7-11370H @ 3.30GHz",
+    "logicalCPUs": 8,
+    "ramBytes": 16856203264,
+    "electron": "37.6.0",
+    "devicePixelRatio": 1.0000000298023224
+  },
+  "results": {
+    "idle": {
+      "state": null,
+      "frames": 1323,
+      "seconds": 8,
+      "fps": 164.9,
+      "p50Ms": 6.1,
+      "p90Ms": 6.2,
+      "p95Ms": 6.2,
+      "p99Ms": 6.3,
+      "maxMs": 6.8,
+      "meanMs": 6.05,
+      "foreignBusyPercent": 21.3
+    },
+    "empty": {
+      "state": null,
+      "frames": 1323,
+      "seconds": 8,
+      "fps": 164.8,
+      "p50Ms": 6.1,
+      "p90Ms": 6.2,
+      "p95Ms": 6.2,
+      "p99Ms": 6.3,
+      "maxMs": 12.9,
+      "meanMs": 6.06,
+      "foreignBusyPercent": 18.4
+    },
+    "small": {
+      "state": null,
+      "frames": 1321,
+      "seconds": 8,
+      "fps": 164.9,
+      "p50Ms": 6.1,
+      "p90Ms": 6.2,
+      "p95Ms": 6.2,
+      "p99Ms": 6.3,
+      "maxMs": 12.9,
+      "meanMs": 6.06,
+      "foreignBusyPercent": 18.2
+    },
+    "smallDragOnly": {
+      "state": null,
+      "frames": 1340,
+      "seconds": 8,
+      "fps": 164.3,
+      "p50Ms": 6.1,
+      "p90Ms": 6.2,
+      "p95Ms": 6.2,
+      "p99Ms": 6.3,
+      "maxMs": 12.1,
+      "meanMs": 6.06,
+      "foreignBusyPercent": 20.8
+    },
+    "smallDragAndWheel": {
+      "state": null,
+      "frames": 1333,
+      "seconds": 8,
+      "fps": 164.6,
+      "p50Ms": 6.1,
+      "p90Ms": 6.2,
+      "p95Ms": 6.2,
+      "p99Ms": 6.3,
+      "maxMs": 6.6,
+      "meanMs": 6.06,
+      "foreignBusyPercent": 21.7
+    }
+  },
+  "checkedAt": "2026-10-15T00:38:46.175Z"
+}
